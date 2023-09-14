@@ -6,7 +6,10 @@
     "noImplicitAny": false,
     "paths": {
       "react": [ "./node_modules/@types/react" ]
-    }
+    },
+    "lib": ["DOM", "ES2020"],
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["src"]
 }

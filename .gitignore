@@ -1,4 +1,5 @@
-
+.yarn/*.gz
+.yarn/cache*
 
 lib/
 coverage/

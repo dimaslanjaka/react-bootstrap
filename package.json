@@ -161,5 +161,6 @@
   },
   "release": {
     "conventionalCommits": true
-  }
+  },
+  "packageManager": "yarn@3.6.3"
 }

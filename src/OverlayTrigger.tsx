@@ -211,7 +211,7 @@ function OverlayTrigger({
 
     timeout.set(() => {
       if (hoverStateRef.current === 'show') setShow(true);
-    }, delay.show);
+    }, delay.show as number);
   }, [delay.show, setShow, timeout]);
 
   const handleHide = useCallback(() => {
@@ -225,7 +225,7 @@ function OverlayTrigger({
 
     timeout.set(() => {
       if (hoverStateRef.current === 'hide') setShow(false);
-    }, delay.hide);
+    }, delay.hide as number);
   }, [delay.hide, setShow, timeout]);
 
   const handleFocus = useCallback(

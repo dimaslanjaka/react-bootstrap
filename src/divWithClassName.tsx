@@ -10,4 +10,4 @@ export const divWithClassName = (className: string) =>
     />
   ));
 
-export default divWithClassName
+export default divWithClassName;

@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { CloseButtonVariant } from './CloseButton';
-import AbstractModalHeader, {
-  AbstractModalHeaderProps,
-} from './AbstractModalHeader';
+import AbstractModalHeader, { AbstractModalHeaderProps } from './AbstractModalHeader';
 import { BsPrefixOnlyProps } from './helpers';
 
-export interface OffcanvasHeaderProps
-  extends AbstractModalHeaderProps,
-    BsPrefixOnlyProps {}
+export interface OffcanvasHeaderProps extends AbstractModalHeaderProps, BsPrefixOnlyProps {}
 
 const propTypes = {
   /**
@@ -40,20 +36,11 @@ const propTypes = {
    * a Offcanvas component, the onHide will automatically be propagated up to the
    * parent Offcanvas `onHide`.
    */
-  onHide: PropTypes.func,
+  onHide: PropTypes.func
 };
 
 const OffcanvasHeader = React.forwardRef<HTMLDivElement, OffcanvasHeaderProps>(
-  (
-    {
-      bsPrefix,
-      className,
-      closeLabel = 'Close',
-      closeButton = false,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ bsPrefix, className, closeLabel = 'Close', closeButton = false, ...props }, ref) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'offcanvas-header');
     return (
       <AbstractModalHeader
@@ -64,7 +51,7 @@ const OffcanvasHeader = React.forwardRef<HTMLDivElement, OffcanvasHeaderProps>(
         closeButton={closeButton}
       />
     );
-  },
+  }
 );
 
 OffcanvasHeader.displayName = 'OffcanvasHeader';

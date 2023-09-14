@@ -7,9 +7,7 @@ import { Placement, PopperRef } from './types';
 import { BsPrefixProps, getOverlayDirection } from './helpers';
 import getInitialPopperStyles from './getInitialPopperStyles';
 
-export interface TooltipProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    BsPrefixProps {
+export interface TooltipProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixProps {
   placement?: Placement;
   arrowProps?: Partial<OverlayArrowProps>;
   show?: boolean;
@@ -50,7 +48,7 @@ const propTypes = {
     'bottom-start',
     'left-end',
     'left',
-    'left-start',
+    'left-start'
   ]),
 
   /**
@@ -62,7 +60,7 @@ const propTypes = {
    */
   arrowProps: PropTypes.shape({
     ref: PropTypes.any,
-    style: PropTypes.object,
+    style: PropTypes.object
   }),
 
   /**
@@ -74,7 +72,7 @@ const propTypes = {
   popper: PropTypes.object,
 
   /** @private */
-  show: PropTypes.any,
+  show: PropTypes.any
 };
 
 const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
@@ -91,7 +89,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       show,
       ...props
     }: TooltipProps,
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'tooltip');
     const isRTL = useIsRTL();
@@ -103,7 +101,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     if (show && !hasDoneInitialMeasure) {
       computedStyle = {
         ...style,
-        ...getInitialPopperStyles(popper?.strategy),
+        ...getInitialPopperStyles(popper?.strategy)
       };
     }
 
@@ -120,7 +118,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
         <div className={`${bsPrefix}-inner`}>{children}</div>
       </div>
     );
-  },
+  }
 );
 
 Tooltip.propTypes = propTypes as any;
@@ -129,5 +127,5 @@ Tooltip.displayName = 'Tooltip';
 export default Object.assign(Tooltip, {
   // Default tooltip offset.
   // https://github.com/twbs/bootstrap/blob/beca2a6c7f6bc88b6449339fc76edcda832c59e5/js/src/tooltip.js#L65
-  TOOLTIP_OFFSET: [0, 6],
+  TOOLTIP_OFFSET: [0, 6]
 });

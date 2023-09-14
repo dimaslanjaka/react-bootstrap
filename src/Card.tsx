@@ -15,9 +15,7 @@ import CardTitle from './CardTitle';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { Color, Variant } from './types';
 
-export interface CardProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface CardProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {
   bg?: Variant;
   text?: Color;
   border?: Variant;
@@ -57,13 +55,10 @@ const propTypes = {
    */
   body: PropTypes.bool,
 
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const Card: BsPrefixRefForwardingComponent<'div', CardProps> = React.forwardRef<
-  HTMLElement,
-  CardProps
->(
+const Card: BsPrefixRefForwardingComponent<'div', CardProps> = React.forwardRef<HTMLElement, CardProps>(
   (
     {
       bsPrefix,
@@ -77,7 +72,7 @@ const Card: BsPrefixRefForwardingComponent<'div', CardProps> = React.forwardRef<
       as: Component = 'div',
       ...props
     },
-    ref,
+    ref
   ) => {
     const prefix = useBootstrapPrefix(bsPrefix, 'card');
 
@@ -90,13 +85,13 @@ const Card: BsPrefixRefForwardingComponent<'div', CardProps> = React.forwardRef<
           prefix,
           bg && `bg-${bg}`,
           text && `text-${text}`,
-          border && `border-${border}`,
+          border && `border-${border}`
         )}
       >
         {body ? <CardBody>{children}</CardBody> : children}
       </Component>
     );
-  },
+  }
 );
 
 Card.displayName = 'Card';
@@ -111,5 +106,5 @@ export default Object.assign(Card, {
   Text: CardText,
   Header: CardHeader,
   Footer: CardFooter,
-  ImgOverlay: CardImgOverlay,
+  ImgOverlay: CardImgOverlay
 });

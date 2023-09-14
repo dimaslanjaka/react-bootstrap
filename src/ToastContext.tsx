@@ -6,7 +6,7 @@ export interface ToastContextType {
 
 const ToastContext = React.createContext<ToastContextType>({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onClose() {},
+  onClose() {}
 });
 
 export default ToastContext;

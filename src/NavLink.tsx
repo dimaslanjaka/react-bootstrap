@@ -3,17 +3,12 @@ import PropTypes from 'prop-types';
 
 import * as React from 'react';
 import Anchor from '@restart/ui/Anchor';
-import {
-  useNavItem,
-  NavItemProps as BaseNavItemProps,
-} from '@restart/ui/NavItem';
+import { useNavItem, NavItemProps as BaseNavItemProps } from '@restart/ui/NavItem';
 import { makeEventKey } from '@restart/ui/SelectableContext';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface NavLinkProps
-  extends BsPrefixProps,
-    Omit<BaseNavItemProps, 'as'> {}
+export interface NavLinkProps extends BsPrefixProps, Omit<BaseNavItemProps, 'as'> {}
 
 const propTypes = {
   /**
@@ -47,47 +42,30 @@ const propTypes = {
   eventKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /** @default 'a' */
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
-  React.forwardRef<HTMLElement, NavLinkProps>(
-    (
-      {
-        bsPrefix,
-        className,
-        as: Component = Anchor,
-        active,
-        eventKey,
-        disabled = false,
-        ...props
-      },
-      ref,
-    ) => {
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'nav-link');
-      const [navItemProps, meta] = useNavItem({
-        key: makeEventKey(eventKey, props.href),
-        active,
-        disabled,
-        ...props,
-      });
+const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> = React.forwardRef<HTMLElement, NavLinkProps>(
+  ({ bsPrefix, className, as: Component = Anchor, active, eventKey, disabled = false, ...props }, ref) => {
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'nav-link');
+    const [navItemProps, meta] = useNavItem({
+      key: makeEventKey(eventKey, props.href),
+      active,
+      disabled,
+      ...props
+    });
 
-      return (
-        <Component
-          {...props}
-          {...navItemProps}
-          ref={ref}
-          disabled={disabled}
-          className={classNames(
-            className,
-            bsPrefix,
-            disabled && 'disabled',
-            meta.isActive && 'active',
-          )}
-        />
-      );
-    },
-  );
+    return (
+      <Component
+        {...props}
+        {...navItemProps}
+        ref={ref}
+        disabled={disabled}
+        className={classNames(className, bsPrefix, disabled && 'disabled', meta.isActive && 'active')}
+      />
+    );
+  }
+);
 
 NavLink.displayName = 'NavLink';
 NavLink.propTypes = propTypes;

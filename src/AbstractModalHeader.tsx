@@ -5,8 +5,7 @@ import useEventCallback from '@restart/hooks/useEventCallback';
 import CloseButton, { CloseButtonVariant } from './CloseButton';
 import ModalContext from './ModalContext';
 
-export interface AbstractModalHeaderProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface AbstractModalHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   closeLabel?: string;
   closeVariant?: CloseButtonVariant;
   closeButton?: boolean;
@@ -36,24 +35,11 @@ const propTypes = {
    * a ModalContext, the onHide will automatically be propagated up
    * to the parent `onHide`.
    */
-  onHide: PropTypes.func,
+  onHide: PropTypes.func
 };
 
-const AbstractModalHeader = React.forwardRef<
-  HTMLDivElement,
-  AbstractModalHeaderProps
->(
-  (
-    {
-      closeLabel = 'Close',
-      closeVariant,
-      closeButton = false,
-      onHide,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
+const AbstractModalHeader = React.forwardRef<HTMLDivElement, AbstractModalHeaderProps>(
+  ({ closeLabel = 'Close', closeVariant, closeButton = false, onHide, children, ...props }, ref) => {
     const context = useContext(ModalContext);
 
     const handleClick = useEventCallback(() => {
@@ -65,16 +51,10 @@ const AbstractModalHeader = React.forwardRef<
       <div ref={ref} {...props}>
         {children}
 
-        {closeButton && (
-          <CloseButton
-            aria-label={closeLabel}
-            variant={closeVariant}
-            onClick={handleClick}
-          />
-        )}
+        {closeButton && <CloseButton aria-label={closeLabel} variant={closeVariant} onClick={handleClick} />}
       </div>
     );
-  },
+  }
 );
 
 AbstractModalHeader.propTypes = propTypes;

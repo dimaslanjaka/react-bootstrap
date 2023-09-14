@@ -14,7 +14,7 @@ export interface NavbarCollapseProps
 
 const propTypes = {
   /** @default 'navbar-collapse' */
-  bsPrefix: PropTypes.string,
+  bsPrefix: PropTypes.string
 };
 
 const NavbarCollapse = React.forwardRef<HTMLDivElement, NavbarCollapseProps>(
@@ -29,7 +29,7 @@ const NavbarCollapse = React.forwardRef<HTMLDivElement, NavbarCollapseProps>(
         </div>
       </Collapse>
     );
-  },
+  }
 );
 
 NavbarCollapse.displayName = 'NavbarCollapse';

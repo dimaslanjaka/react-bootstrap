@@ -8,10 +8,7 @@ import { PropsFromToggle } from './DropdownToggle';
 import { BsPrefixProps } from './helpers';
 import { alignPropType } from './types';
 
-export interface SplitButtonProps
-  extends Omit<DropdownProps, 'title'>,
-    PropsFromToggle,
-    BsPrefixProps {
+export interface SplitButtonProps extends Omit<DropdownProps, 'title'>, PropsFromToggle, BsPrefixProps {
   menuRole?: string;
   renderMenuOnMount?: boolean;
   rootCloseEvent?: 'click' | 'mousedown';
@@ -87,7 +84,7 @@ const propTypes = {
   /** @ignore */
   variant: PropTypes.string,
   /** @ignore */
-  size: PropTypes.string,
+  size: PropTypes.string
 };
 
 /**
@@ -120,7 +117,7 @@ const SplitButton = React.forwardRef<HTMLElement, SplitButtonProps>(
       flip,
       ...props
     },
-    ref,
+    ref
   ) => (
     <Dropdown ref={ref} {...props} as={ButtonGroup}>
       <Button
@@ -135,27 +132,15 @@ const SplitButton = React.forwardRef<HTMLElement, SplitButtonProps>(
       >
         {title}
       </Button>
-      <Dropdown.Toggle
-        split
-        id={id}
-        size={size}
-        variant={variant}
-        disabled={props.disabled}
-        childBsPrefix={bsPrefix}
-      >
+      <Dropdown.Toggle split id={id} size={size} variant={variant} disabled={props.disabled} childBsPrefix={bsPrefix}>
         <span className="visually-hidden">{toggleLabel}</span>
       </Dropdown.Toggle>
 
-      <Dropdown.Menu
-        role={menuRole}
-        renderOnMount={renderMenuOnMount}
-        rootCloseEvent={rootCloseEvent}
-        flip={flip}
-      >
+      <Dropdown.Menu role={menuRole} renderOnMount={renderMenuOnMount} rootCloseEvent={rootCloseEvent} flip={flip}>
         {children}
       </Dropdown.Menu>
     </Dropdown>
-  ),
+  )
 );
 
 SplitButton.propTypes = propTypes as any;

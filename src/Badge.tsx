@@ -6,9 +6,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { Color, Variant } from './types';
 
-export interface BadgeProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface BadgeProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {
   bg?: Variant;
   pill?: boolean;
   text?: Color;
@@ -39,39 +37,21 @@ const propTypes = {
   text: PropTypes.string,
 
   /** @default span */
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const Badge: BsPrefixRefForwardingComponent<'span', BadgeProps> =
-  React.forwardRef<HTMLElement, BadgeProps>(
-    (
-      {
-        bsPrefix,
-        bg = 'primary',
-        pill = false,
-        text,
-        className,
-        as: Component = 'span',
-        ...props
-      },
-      ref,
-    ) => {
-      const prefix = useBootstrapPrefix(bsPrefix, 'badge');
-      return (
-        <Component
-          ref={ref}
-          {...props}
-          className={classNames(
-            className,
-            prefix,
-            pill && `rounded-pill`,
-            text && `text-${text}`,
-            bg && `bg-${bg}`,
-          )}
-        />
-      );
-    },
-  );
+const Badge: BsPrefixRefForwardingComponent<'span', BadgeProps> = React.forwardRef<HTMLElement, BadgeProps>(
+  ({ bsPrefix, bg = 'primary', pill = false, text, className, as: Component = 'span', ...props }, ref) => {
+    const prefix = useBootstrapPrefix(bsPrefix, 'badge');
+    return (
+      <Component
+        ref={ref}
+        {...props}
+        className={classNames(className, prefix, pill && `rounded-pill`, text && `text-${text}`, bg && `bg-${bg}`)}
+      />
+    );
+  }
+);
 
 Badge.displayName = 'Badge';
 Badge.propTypes = propTypes;

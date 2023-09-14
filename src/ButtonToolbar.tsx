@@ -6,9 +6,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 
 import { BsPrefixProps } from './helpers';
 
-export interface ButtonToolbarProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {}
+export interface ButtonToolbarProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {}
 
 const propTypes = {
   /**
@@ -21,22 +19,15 @@ const propTypes = {
    * "toolbar" role is correct. An `aria-label` or `aria-labelledby`
    * prop is also recommended.
    */
-  role: PropTypes.string,
+  role: PropTypes.string
 };
 
 const ButtonToolbar = React.forwardRef<HTMLDivElement, ButtonToolbarProps>(
   ({ bsPrefix, className, role = 'toolbar', ...props }, ref) => {
     const prefix = useBootstrapPrefix(bsPrefix, 'btn-toolbar');
 
-    return (
-      <div
-        {...props}
-        ref={ref}
-        className={classNames(className, prefix)}
-        role={role}
-      />
-    );
-  },
+    return <div {...props} ref={ref} className={classNames(className, prefix)} role={role} />;
+  }
 );
 
 ButtonToolbar.displayName = 'ButtonToolbar';

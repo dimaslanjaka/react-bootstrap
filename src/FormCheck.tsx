@@ -12,9 +12,7 @@ import { hasChildOfType } from './ElementChildren';
 
 export type FormCheckType = 'checkbox' | 'radio' | 'switch';
 
-export interface FormCheckProps
-  extends BsPrefixProps,
-    React.InputHTMLAttributes<HTMLInputElement> {
+export interface FormCheckProps extends BsPrefixProps, React.InputHTMLAttributes<HTMLInputElement> {
   inline?: boolean;
   reverse?: boolean;
   disabled?: boolean;
@@ -119,98 +117,96 @@ const propTypes = {
   feedbackTooltip: PropTypes.bool,
 
   /** A message to display when the input is in a validation state */
-  feedback: PropTypes.node,
+  feedback: PropTypes.node
 };
 
-const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
-  React.forwardRef<HTMLInputElement, FormCheckProps>(
-    (
-      {
-        id,
-        bsPrefix,
-        bsSwitchPrefix,
-        inline = false,
-        reverse = false,
-        disabled = false,
-        isValid = false,
-        isInvalid = false,
-        feedbackTooltip = false,
-        feedback,
-        feedbackType,
-        className,
-        style,
-        title = '',
-        type = 'checkbox',
-        label,
-        children,
-        // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as = 'input',
-        ...props
-      },
-      ref,
-    ) => {
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'form-check');
-      bsSwitchPrefix = useBootstrapPrefix(bsSwitchPrefix, 'form-switch');
-
-      const { controlId } = useContext(FormContext);
-      const innerFormContext = useMemo(
-        () => ({
-          controlId: id || controlId,
-        }),
-        [controlId, id],
-      );
-
-      const hasLabel =
-        (!children && label != null && label !== false) ||
-        hasChildOfType(children, FormCheckLabel);
-
-      const input = (
-        <FormCheckInput
-          {...props}
-          type={type === 'switch' ? 'checkbox' : type}
-          ref={ref}
-          isValid={isValid}
-          isInvalid={isInvalid}
-          disabled={disabled}
-          as={as}
-        />
-      );
-
-      return (
-        <FormContext.Provider value={innerFormContext}>
-          <div
-            style={style}
-            className={classNames(
-              className,
-              hasLabel && bsPrefix,
-              inline && `${bsPrefix}-inline`,
-              reverse && `${bsPrefix}-reverse`,
-              type === 'switch' && bsSwitchPrefix,
-            )}
-          >
-            {children || (
-              <>
-                {input}
-                {hasLabel && (
-                  <FormCheckLabel title={title}>{label}</FormCheckLabel>
-                )}
-                {feedback && (
-                  <Feedback type={feedbackType} tooltip={feedbackTooltip}>
-                    {feedback}
-                  </Feedback>
-                )}
-              </>
-            )}
-          </div>
-        </FormContext.Provider>
-      );
+const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> = React.forwardRef<
+  HTMLInputElement,
+  FormCheckProps
+>(
+  (
+    {
+      id,
+      bsPrefix,
+      bsSwitchPrefix,
+      inline = false,
+      reverse = false,
+      disabled = false,
+      isValid = false,
+      isInvalid = false,
+      feedbackTooltip = false,
+      feedback,
+      feedbackType,
+      className,
+      style,
+      title = '',
+      type = 'checkbox',
+      label,
+      children,
+      // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+      as = 'input',
+      ...props
     },
-  );
+    ref
+  ) => {
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'form-check');
+    bsSwitchPrefix = useBootstrapPrefix(bsSwitchPrefix, 'form-switch');
+
+    const { controlId } = useContext(FormContext);
+    const innerFormContext = useMemo(
+      () => ({
+        controlId: id || controlId
+      }),
+      [controlId, id]
+    );
+
+    const hasLabel = (!children && label != null && label !== false) || hasChildOfType(children, FormCheckLabel);
+
+    const input = (
+      <FormCheckInput
+        {...props}
+        type={type === 'switch' ? 'checkbox' : type}
+        ref={ref}
+        isValid={isValid}
+        isInvalid={isInvalid}
+        disabled={disabled}
+        as={as}
+      />
+    );
+
+    return (
+      <FormContext.Provider value={innerFormContext}>
+        <div
+          style={style}
+          className={classNames(
+            className,
+            hasLabel && bsPrefix,
+            inline && `${bsPrefix}-inline`,
+            reverse && `${bsPrefix}-reverse`,
+            type === 'switch' && bsSwitchPrefix
+          )}
+        >
+          {children || (
+            <>
+              {input}
+              {hasLabel && <FormCheckLabel title={title}>{label}</FormCheckLabel>}
+              {feedback && (
+                <Feedback type={feedbackType} tooltip={feedbackTooltip}>
+                  {feedback}
+                </Feedback>
+              )}
+            </>
+          )}
+        </div>
+      </FormContext.Provider>
+    );
+  }
+);
 
 FormCheck.displayName = 'FormCheck';
 FormCheck.propTypes = propTypes;
 
 export default Object.assign(FormCheck, {
   Input: FormCheckInput,
-  Label: FormCheckLabel,
+  Label: FormCheckLabel
 });

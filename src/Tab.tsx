@@ -33,14 +33,14 @@ const propTypes = {
   /**
    * Object containing attributes to pass to underlying nav link.
    */
-  tabAttrs: PropTypes.object,
+  tabAttrs: PropTypes.object
 };
 
 const Tab: React.FC<TabProps> = () => {
   throw new Error(
     'ReactBootstrap: The `Tab` component is not meant to be rendered! ' +
       "It's an abstract component that is only valid as a direct Child of the `Tabs` Component. " +
-      'For custom tabs components use TabPane and TabsContainer directly',
+      'For custom tabs components use TabPane and TabsContainer directly'
   );
 };
 
@@ -49,5 +49,5 @@ Tab.propTypes = propTypes;
 export default Object.assign(Tab, {
   Container: TabContainer,
   Content: TabContent,
-  Pane: TabPane,
+  Pane: TabPane
 });

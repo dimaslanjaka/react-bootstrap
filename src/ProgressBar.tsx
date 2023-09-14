@@ -8,9 +8,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 import { map } from './ElementChildren';
 import { BsPrefixProps } from './helpers';
 
-export interface ProgressBarProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    BsPrefixProps {
+export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixProps {
   min?: number;
   now?: number;
   max?: number;
@@ -51,12 +49,9 @@ function onlyProgressBar(props, propName, componentName): Error | null {
     if (child.type === element.type) return;
 
     const childType: any = child.type;
-    const childIdentifier = React.isValidElement(child)
-      ? childType.displayName || childType.name || childType
-      : child;
+    const childIdentifier = React.isValidElement(child) ? childType.displayName || childType.name || childType : child;
     error = new Error(
-      `Children of ${componentName} can contain only ProgressBar ` +
-        `components. Found ${childIdentifier}.`,
+      `Children of ${componentName} can contain only ProgressBar ` + `components. Found ${childIdentifier}.`
     );
   });
 
@@ -121,7 +116,7 @@ const propTypes = {
   /**
    * @private
    */
-  isChild: PropTypes.bool,
+  isChild: PropTypes.bool
 };
 
 function getPercentage(now, min, max) {
@@ -144,7 +139,7 @@ function renderProgressBar(
     bsPrefix,
     ...props
   }: ProgressBarProps,
-  ref,
+  ref
 ) {
   return (
     <div
@@ -154,18 +149,14 @@ function renderProgressBar(
       className={classNames(className, `${bsPrefix}-bar`, {
         [`bg-${variant}`]: variant,
         [`${bsPrefix}-bar-animated`]: animated,
-        [`${bsPrefix}-bar-striped`]: animated || striped,
+        [`${bsPrefix}-bar-striped`]: animated || striped
       })}
       style={{ width: `${getPercentage(now, min, max)}%`, ...style }}
       aria-valuenow={now}
       aria-valuemin={min}
       aria-valuemax={max}
     >
-      {visuallyHidden ? (
-        <span className="visually-hidden">{label}</span>
-      ) : (
-        label
-      )}
+      {visuallyHidden ? <span className="visually-hidden">{label}</span> : label}
     </div>
   );
 }
@@ -180,7 +171,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       animated: false,
       visuallyHidden: false,
       striped: false,
-      ...rest,
+      ...rest
     };
 
     props.bsPrefix = useBootstrapPrefix(props.bsPrefix, 'progress');
@@ -205,11 +196,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     } = props;
 
     return (
-      <div
-        ref={ref}
-        {...wrapperProps}
-        className={classNames(className, bsPrefix)}
-      >
+      <div ref={ref} {...wrapperProps} className={classNames(className, bsPrefix)}>
         {children
           ? map(children, (child) => cloneElement(child, { isChild: true }))
           : renderProgressBar(
@@ -222,13 +209,13 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
                 striped,
                 animated,
                 bsPrefix,
-                variant,
+                variant
               },
-              ref,
+              ref
             )}
       </div>
     );
-  },
+  }
 );
 
 ProgressBar.displayName = 'ProgressBar';

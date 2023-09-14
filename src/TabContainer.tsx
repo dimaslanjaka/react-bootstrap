@@ -25,10 +25,7 @@ const propTypes = {
    * @type {{Transition | false}}
    * @default {Fade}
    */
-  transition: PropTypes.oneOfType([
-    PropTypes.oneOf([false]),
-    PropTypes.elementType,
-  ]),
+  transition: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.elementType]),
   /**
    * Wait until the first "enter" transition to mount tabs (add them to the DOM)
    */
@@ -64,7 +61,7 @@ const propTypes = {
    *
    * @controllable onSelect
    */
-  activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 const TabContainer = ({ transition, ...props }: TabContainerProps) => (

@@ -3,25 +3,15 @@ import classNames from 'classnames';
 import { useBootstrapPrefix } from './ThemeProvider';
 import type { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface FigureCaptionProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {}
+export interface FigureCaptionProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {}
 
-const FigureCaption: BsPrefixRefForwardingComponent<
-  'figcaption',
+const FigureCaption: BsPrefixRefForwardingComponent<'figcaption', FigureCaptionProps> = React.forwardRef<
+  HTMLElement,
   FigureCaptionProps
-> = React.forwardRef<HTMLElement, FigureCaptionProps>(
-  ({ className, bsPrefix, as: Component = 'figcaption', ...props }, ref) => {
-    bsPrefix = useBootstrapPrefix(bsPrefix, 'figure-caption');
-    return (
-      <Component
-        ref={ref}
-        className={classNames(className, bsPrefix)}
-        {...props}
-      />
-    );
-  },
-);
+>(({ className, bsPrefix, as: Component = 'figcaption', ...props }, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'figure-caption');
+  return <Component ref={ref} className={classNames(className, bsPrefix)} {...props} />;
+});
 
 FigureCaption.displayName = 'FigureCaption';
 

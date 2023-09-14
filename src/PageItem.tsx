@@ -6,9 +6,7 @@ import { ReactNode } from 'react';
 import Anchor from '@restart/ui/Anchor';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface PageItemProps
-  extends React.HTMLAttributes<HTMLElement>,
-    BsPrefixProps {
+export interface PageItemProps extends React.HTMLAttributes<HTMLElement>, BsPrefixProps {
   disabled?: boolean;
   active?: boolean;
   activeLabel?: string;
@@ -37,46 +35,35 @@ const propTypes = {
   linkStyle: PropTypes.object,
 
   /** custom className for the inner component of the PageItem */
-  linkClassName: PropTypes.string,
+  linkClassName: PropTypes.string
 };
 
-const PageItem: BsPrefixRefForwardingComponent<'li', PageItemProps> =
-  React.forwardRef<HTMLLIElement, PageItemProps>(
-    (
-      {
-        active = false,
-        disabled = false,
-        className,
-        style,
-        activeLabel = '(current)',
-        children,
-        linkStyle,
-        linkClassName,
-        ...props
-      }: PageItemProps,
-      ref,
-    ) => {
-      const Component = active || disabled ? 'span' : Anchor;
-      return (
-        <li
-          ref={ref}
-          style={style}
-          className={classNames(className, 'page-item', { active, disabled })}
-        >
-          <Component
-            className={classNames('page-link', linkClassName)}
-            style={linkStyle}
-            {...props}
-          >
-            {children}
-            {active && activeLabel && (
-              <span className="visually-hidden">{activeLabel}</span>
-            )}
-          </Component>
-        </li>
-      );
-    },
-  );
+const PageItem: BsPrefixRefForwardingComponent<'li', PageItemProps> = React.forwardRef<HTMLLIElement, PageItemProps>(
+  (
+    {
+      active = false,
+      disabled = false,
+      className,
+      style,
+      activeLabel = '(current)',
+      children,
+      linkStyle,
+      linkClassName,
+      ...props
+    }: PageItemProps,
+    ref
+  ) => {
+    const Component = active || disabled ? 'span' : Anchor;
+    return (
+      <li ref={ref} style={style} className={classNames(className, 'page-item', { active, disabled })}>
+        <Component className={classNames('page-link', linkClassName)} style={linkStyle} {...props}>
+          {children}
+          {active && activeLabel && <span className="visually-hidden">{activeLabel}</span>}
+        </Component>
+      </li>
+    );
+  }
+);
 
 PageItem.propTypes = propTypes;
 PageItem.displayName = 'PageItem';
@@ -84,14 +71,12 @@ PageItem.displayName = 'PageItem';
 export default PageItem;
 
 function createButton(name: string, defaultValue: ReactNode, label = name) {
-  const Button = React.forwardRef(
-    ({ children, ...props }: PageItemProps, ref) => (
-      <PageItem {...props} ref={ref}>
-        <span aria-hidden="true">{children || defaultValue}</span>
-        <span className="visually-hidden">{label}</span>
-      </PageItem>
-    ),
-  );
+  const Button = React.forwardRef(({ children, ...props }: PageItemProps, ref) => (
+    <PageItem {...props} ref={ref}>
+      <span aria-hidden="true">{children || defaultValue}</span>
+      <span className="visually-hidden">{label}</span>
+    </PageItem>
+  ));
 
   Button.displayName = name;
 

@@ -15,9 +15,7 @@ export type ToastPosition =
   | 'bottom-center'
   | 'bottom-end';
 
-export interface ToastContainerProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface ToastContainerProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {
   position?: ToastPosition;
   containerPosition?: string;
 }
@@ -40,13 +38,13 @@ const propTypes = {
     'middle-end',
     'bottom-start',
     'bottom-center',
-    'bottom-end',
+    'bottom-end'
   ]),
 
   /**
    * Specify the positioning method for the container.
    */
-  containerPosition: PropTypes.string,
+  containerPosition: PropTypes.string
 };
 
 const positionClasses = {
@@ -58,13 +56,13 @@ const positionClasses = {
   'middle-end': 'top-50 end-0 translate-middle-y',
   'bottom-start': 'bottom-0 start-0',
   'bottom-center': 'bottom-0 start-50 translate-middle-x',
-  'bottom-end': 'bottom-0 end-0',
+  'bottom-end': 'bottom-0 end-0'
 };
 
-const ToastContainer: BsPrefixRefForwardingComponent<
-  'div',
+const ToastContainer: BsPrefixRefForwardingComponent<'div', ToastContainerProps> = React.forwardRef<
+  HTMLDivElement,
   ToastContainerProps
-> = React.forwardRef<HTMLDivElement, ToastContainerProps>(
+>(
   (
     {
       bsPrefix,
@@ -75,7 +73,7 @@ const ToastContainer: BsPrefixRefForwardingComponent<
       as: Component = 'div',
       ...props
     },
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'toast-container');
 
@@ -87,11 +85,11 @@ const ToastContainer: BsPrefixRefForwardingComponent<
           bsPrefix,
           position && positionClasses[position],
           containerPosition && `position-${containerPosition}`,
-          className,
+          className
         )}
       />
     );
-  },
+  }
 );
 
 ToastContainer.displayName = 'ToastContainer';

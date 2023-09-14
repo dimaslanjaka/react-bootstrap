@@ -4,8 +4,7 @@ import classNames from 'classnames';
 
 export type CloseButtonVariant = 'white' | string;
 
-export interface CloseButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: CloseButtonVariant;
 }
 
@@ -21,26 +20,19 @@ const propTypes = {
    *
    * Omitting this will render the default dark color.
    */
-  variant: PropTypes.oneOf<CloseButtonVariant>(['white']),
+  variant: PropTypes.oneOf<CloseButtonVariant>(['white'])
 };
 
 const CloseButton = React.forwardRef<HTMLButtonElement, CloseButtonProps>(
-  (
-    { className, variant, 'aria-label': ariaLabel = 'Close', ...props },
-    ref,
-  ) => (
+  ({ className, variant, 'aria-label': ariaLabel = 'Close', ...props }, ref) => (
     <button
       ref={ref}
       type="button"
-      className={classNames(
-        'btn-close',
-        variant && `btn-close-${variant}`,
-        className,
-      )}
+      className={classNames('btn-close', variant && `btn-close-${variant}`, className)}
       aria-label={ariaLabel}
       {...props}
     />
-  ),
+  )
 );
 
 CloseButton.displayName = 'CloseButton';

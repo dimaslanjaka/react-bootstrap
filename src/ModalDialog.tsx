@@ -6,18 +6,9 @@ import { useBootstrapPrefix } from './ThemeProvider';
 
 import { BsPrefixProps } from './helpers';
 
-export interface ModalDialogProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    BsPrefixProps {
+export interface ModalDialogProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixProps {
   size?: 'sm' | 'lg' | 'xl';
-  fullscreen?:
-    | true
-    | string
-    | 'sm-down'
-    | 'md-down'
-    | 'lg-down'
-    | 'xl-down'
-    | 'xxl-down';
+  fullscreen?: true | string | 'sm-down' | 'md-down' | 'lg-down' | 'xl-down' | 'xxl-down';
   centered?: boolean;
   scrollable?: boolean;
   contentClassName?: string;
@@ -51,7 +42,7 @@ const propTypes = {
   /**
    * Allows scrolling the `<Modal.Body>` instead of the entire Modal when overflowing.
    */
-  scrollable: PropTypes.bool,
+  scrollable: PropTypes.bool
 };
 
 const ModalDialog = React.forwardRef<HTMLDivElement, ModalDialogProps>(
@@ -67,15 +58,13 @@ const ModalDialog = React.forwardRef<HTMLDivElement, ModalDialogProps>(
       scrollable,
       ...props
     }: ModalDialogProps,
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'modal');
     const dialogClass = `${bsPrefix}-dialog`;
 
     const fullScreenClass =
-      typeof fullscreen === 'string'
-        ? `${bsPrefix}-fullscreen-${fullscreen}`
-        : `${bsPrefix}-fullscreen`;
+      typeof fullscreen === 'string' ? `${bsPrefix}-fullscreen-${fullscreen}` : `${bsPrefix}-fullscreen`;
 
     return (
       <div
@@ -87,15 +76,13 @@ const ModalDialog = React.forwardRef<HTMLDivElement, ModalDialogProps>(
           size && `${bsPrefix}-${size}`,
           centered && `${dialogClass}-centered`,
           scrollable && `${dialogClass}-scrollable`,
-          fullscreen && fullScreenClass,
+          fullscreen && fullScreenClass
         )}
       >
-        <div className={classNames(`${bsPrefix}-content`, contentClassName)}>
-          {children}
-        </div>
+        <div className={classNames(`${bsPrefix}-content`, contentClassName)}>{children}</div>
       </div>
     );
-  },
+  }
 );
 
 ModalDialog.displayName = 'ModalDialog';

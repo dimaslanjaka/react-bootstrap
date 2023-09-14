@@ -15,9 +15,7 @@ import NavbarContext, { NavbarContextType } from './NavbarContext';
 import NavbarText from './NavbarText';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface NavbarProps
-  extends BsPrefixProps,
-    Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
+export interface NavbarProps extends BsPrefixProps, Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
   variant?: 'light' | 'dark' | string;
   expand?: boolean | string | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   bg?: string;
@@ -130,11 +128,11 @@ const propTypes = {
    *
    * @default 'navigation'
    */
-  role: PropTypes.string,
+  role: PropTypes.string
 };
 
-const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
-  React.forwardRef<HTMLElement, NavbarProps>((props, ref) => {
+const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> = React.forwardRef<HTMLElement, NavbarProps>(
+  (props, ref) => {
     const {
       bsPrefix: initialBsPrefix,
       expand = true,
@@ -151,7 +149,7 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
       collapseOnSelect = false,
       ...controlledProps
     } = useUncontrolled(props, {
-      expanded: 'onToggle',
+      expanded: 'onToggle'
     });
 
     const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'navbar');
@@ -163,7 +161,7 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
           onToggle?.(false);
         }
       },
-      [onSelect, collapseOnSelect, expanded, onToggle],
+      [onSelect, collapseOnSelect, expanded, onToggle]
     );
 
     // will result in some false positives but that seems better
@@ -180,9 +178,9 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
         onToggle: () => onToggle?.(!expanded),
         bsPrefix,
         expanded: !!expanded,
-        expand,
+        expand
       }),
-      [bsPrefix, expanded, expand, onToggle],
+      [bsPrefix, expanded, expand, onToggle]
     );
 
     return (
@@ -198,13 +196,14 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
               variant && `${bsPrefix}-${variant}`,
               bg && `bg-${bg}`,
               sticky && `sticky-${sticky}`,
-              fixed && `fixed-${fixed}`,
+              fixed && `fixed-${fixed}`
             )}
           />
         </SelectableContext.Provider>
       </NavbarContext.Provider>
     );
-  });
+  }
+);
 
 Navbar.propTypes = propTypes;
 Navbar.displayName = 'Navbar';
@@ -214,5 +213,5 @@ export default Object.assign(Navbar, {
   Collapse: NavbarCollapse,
   Offcanvas: NavbarOffcanvas,
   Text: NavbarText,
-  Toggle: NavbarToggle,
+  Toggle: NavbarToggle
 });

@@ -1,16 +1,7 @@
 import PropTypes from 'prop-types';
 import { State, UsePopperOptions } from '@restart/ui/usePopper';
 
-export type Variant =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'danger'
-  | 'warning'
-  | 'info'
-  | 'dark'
-  | 'light'
-  | string;
+export type Variant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | string;
 export type ButtonVariant =
   | Variant
   | 'link'
@@ -57,7 +48,7 @@ export const alignPropType = PropTypes.oneOfType([
   PropTypes.shape({ lg: alignDirection }),
   PropTypes.shape({ xl: alignDirection }),
   PropTypes.shape({ xxl: alignDirection }),
-  PropTypes.object,
+  PropTypes.object
 ]);
 
 export type RootCloseEvent = 'click' | 'mousedown';

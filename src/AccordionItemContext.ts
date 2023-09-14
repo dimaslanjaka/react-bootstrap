@@ -5,7 +5,7 @@ export interface AccordionItemContextValue {
 }
 
 const context = React.createContext<AccordionItemContextValue>({
-  eventKey: '',
+  eventKey: ''
 });
 context.displayName = 'AccordionItemContext';
 

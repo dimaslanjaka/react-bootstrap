@@ -1,17 +1,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {
-  useButtonProps,
-  ButtonProps as BaseButtonProps,
-} from '@restart/ui/Button';
+import { useButtonProps, ButtonProps as BaseButtonProps } from '@restart/ui/Button';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { ButtonVariant } from './types';
 
-export interface ButtonProps
-  extends BaseButtonProps,
-    Omit<BsPrefixProps, 'as'> {
+export interface ButtonProps extends BaseButtonProps, Omit<BsPrefixProps, 'as'> {
   active?: boolean;
   variant?: ButtonVariant;
   size?: 'sm' | 'lg';
@@ -69,51 +64,38 @@ const propTypes = {
    */
   type: PropTypes.oneOf(['button', 'reset', 'submit', null]),
 
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
-  React.forwardRef<HTMLButtonElement, ButtonProps>(
-    (
-      {
-        as,
-        bsPrefix,
-        variant = 'primary',
-        size,
-        active = false,
-        disabled = false,
-        className,
-        ...props
-      },
-      ref,
-    ) => {
-      const prefix = useBootstrapPrefix(bsPrefix, 'btn');
-      const [buttonProps, { tagName }] = useButtonProps({
-        tagName: as,
-        disabled,
-        ...props,
-      });
+const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ as, bsPrefix, variant = 'primary', size, active = false, disabled = false, className, ...props }, ref) => {
+    const prefix = useBootstrapPrefix(bsPrefix, 'btn');
+    const [buttonProps, { tagName }] = useButtonProps({
+      tagName: as,
+      disabled,
+      ...props
+    });
 
-      const Component = tagName as React.ElementType;
+    const Component = tagName as React.ElementType;
 
-      return (
-        <Component
-          {...buttonProps}
-          {...props}
-          ref={ref}
-          disabled={disabled}
-          className={classNames(
-            className,
-            prefix,
-            active && 'active',
-            variant && `${prefix}-${variant}`,
-            size && `${prefix}-${size}`,
-            props.href && disabled && 'disabled',
-          )}
-        />
-      );
-    },
-  );
+    return (
+      <Component
+        {...buttonProps}
+        {...props}
+        ref={ref}
+        disabled={disabled}
+        className={classNames(
+          className,
+          prefix,
+          active && 'active',
+          variant && `${prefix}-${variant}`,
+          size && `${prefix}-${size}`,
+          props.href && disabled && 'disabled'
+        )}
+      />
+    );
+  }
+);
 
 Button.displayName = 'Button';
 Button.propTypes = propTypes;

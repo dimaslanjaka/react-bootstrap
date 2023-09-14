@@ -9,9 +9,7 @@ import { Placement, PopperRef } from './types';
 import { BsPrefixProps, getOverlayDirection } from './helpers';
 import getInitialPopperStyles from './getInitialPopperStyles';
 
-export interface PopoverProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    BsPrefixProps {
+export interface PopoverProps extends React.HTMLAttributes<HTMLDivElement>, BsPrefixProps {
   placement?: Placement;
   title?: string;
   arrowProps?: Partial<OverlayArrowProps>;
@@ -54,7 +52,7 @@ const propTypes = {
     'bottom-start',
     'left-end',
     'left',
-    'left-start',
+    'left-start'
   ]),
 
   /**
@@ -64,7 +62,7 @@ const propTypes = {
    */
   arrowProps: PropTypes.shape({
     ref: PropTypes.any,
-    style: PropTypes.object,
+    style: PropTypes.object
   }),
 
   /**
@@ -82,7 +80,7 @@ const propTypes = {
   popper: PropTypes.object,
 
   /** @private */
-  show: PropTypes.bool,
+  show: PropTypes.bool
 };
 
 const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
@@ -100,7 +98,7 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
       show,
       ...props
     },
-    ref,
+    ref
   ) => {
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'popover');
     const isRTL = useIsRTL();
@@ -111,7 +109,7 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
     if (show && !hasDoneInitialMeasure) {
       computedStyle = {
         ...style,
-        ...getInitialPopperStyles(popper?.strategy),
+        ...getInitialPopperStyles(popper?.strategy)
       };
     }
 
@@ -121,18 +119,14 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
         role="tooltip"
         style={computedStyle}
         x-placement={primaryPlacement}
-        className={classNames(
-          className,
-          decoratedBsPrefix,
-          primaryPlacement && `bs-popover-${bsDirection}`,
-        )}
+        className={classNames(className, decoratedBsPrefix, primaryPlacement && `bs-popover-${bsDirection}`)}
         {...props}
       >
         <div className="popover-arrow" {...arrowProps} />
         {body ? <PopoverBody>{children}</PopoverBody> : children}
       </div>
     );
-  },
+  }
 );
 
 Popover.propTypes = propTypes as any;
@@ -143,5 +137,5 @@ export default Object.assign(Popover, {
 
   // Default popover offset.
   // https://github.com/twbs/bootstrap/blob/5c32767e0e0dbac2d934bcdee03719a65d3f1187/js/src/popover.js#L28
-  POPPER_OFFSET: [0, 8] as const,
+  POPPER_OFFSET: [0, 8] as const
 });

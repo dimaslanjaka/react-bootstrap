@@ -1,23 +1,14 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {
-  useBootstrapPrefix,
-  useBootstrapBreakpoints,
-  useBootstrapMinBreakpoint,
-} from './ThemeProvider';
+import { useBootstrapPrefix, useBootstrapBreakpoints, useBootstrapMinBreakpoint } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { GapValue } from './types';
-import createUtilityClassName, {
-  ResponsiveUtilityValue,
-  responsivePropType,
-} from './createUtilityClasses';
+import createUtilityClassName, { ResponsiveUtilityValue, responsivePropType } from './createUtilityClasses';
 
 export type StackDirection = 'horizontal' | 'vertical';
 
-export interface StackProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface StackProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {
   direction?: StackDirection;
   gap?: ResponsiveUtilityValue<GapValue>;
 }
@@ -37,41 +28,34 @@ const propTypes = {
   /**
    * Sets the spacing between each item. Valid values are `0-5`.
    */
-  gap: responsivePropType(PropTypes.number),
+  gap: responsivePropType(PropTypes.number)
 };
 
-const Stack: BsPrefixRefForwardingComponent<'span', StackProps> =
-  React.forwardRef<HTMLElement, StackProps>(
-    (
-      { as: Component = 'div', bsPrefix, className, direction, gap, ...props },
-      ref,
-    ) => {
-      bsPrefix = useBootstrapPrefix(
-        bsPrefix,
-        direction === 'horizontal' ? 'hstack' : 'vstack',
-      );
-      const breakpoints = useBootstrapBreakpoints();
-      const minBreakpoint = useBootstrapMinBreakpoint();
+const Stack: BsPrefixRefForwardingComponent<'span', StackProps> = React.forwardRef<HTMLElement, StackProps>(
+  ({ as: Component = 'div', bsPrefix, className, direction, gap, ...props }, ref) => {
+    bsPrefix = useBootstrapPrefix(bsPrefix, direction === 'horizontal' ? 'hstack' : 'vstack');
+    const breakpoints = useBootstrapBreakpoints();
+    const minBreakpoint = useBootstrapMinBreakpoint();
 
-      return (
-        <Component
-          {...props}
-          ref={ref}
-          className={classNames(
-            className,
-            bsPrefix,
-            ...createUtilityClassName(
-              {
-                gap,
-              },
-              breakpoints,
-              minBreakpoint,
-            ),
-          )}
-        />
-      );
-    },
-  );
+    return (
+      <Component
+        {...props}
+        ref={ref}
+        className={classNames(
+          className,
+          bsPrefix,
+          ...createUtilityClassName(
+            {
+              gap
+            },
+            breakpoints,
+            minBreakpoint
+          )
+        )}
+      />
+    );
+  }
+);
 
 Stack.displayName = 'Stack';
 Stack.propTypes = propTypes;

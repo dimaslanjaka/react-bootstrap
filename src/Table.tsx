@@ -5,9 +5,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 
 import { BsPrefixOnlyProps } from './helpers';
 
-export interface TableProps
-  extends BsPrefixOnlyProps,
-    React.TableHTMLAttributes<HTMLTableElement> {
+export interface TableProps extends BsPrefixOnlyProps, React.TableHTMLAttributes<HTMLTableElement> {
   striped?: boolean | string;
   bordered?: boolean;
   borderless?: boolean;
@@ -65,25 +63,11 @@ const propTypes = {
    * a particular breakpoint. From that breakpoint and up, the table will
    * behave normally and not scroll horizontally.
    */
-  responsive: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  responsive: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(
-  (
-    {
-      bsPrefix,
-      className,
-      striped,
-      bordered,
-      borderless,
-      hover,
-      size,
-      variant,
-      responsive,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ bsPrefix, className, striped, bordered, borderless, hover, size, variant, responsive, ...props }, ref) => {
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'table');
 
     const classes = classNames(
@@ -91,13 +75,10 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       decoratedBsPrefix,
       variant && `${decoratedBsPrefix}-${variant}`,
       size && `${decoratedBsPrefix}-${size}`,
-      striped &&
-        `${decoratedBsPrefix}-${
-          typeof striped === 'string' ? `striped-${striped}` : 'striped'
-        }`,
+      striped && `${decoratedBsPrefix}-${typeof striped === 'string' ? `striped-${striped}` : 'striped'}`,
       bordered && `${decoratedBsPrefix}-bordered`,
       borderless && `${decoratedBsPrefix}-borderless`,
-      hover && `${decoratedBsPrefix}-hover`,
+      hover && `${decoratedBsPrefix}-hover`
     );
 
     const table = <table {...props} className={classes} ref={ref} />;
@@ -111,7 +92,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
     }
 
     return table;
-  },
+  }
 );
 
 Table.propTypes = propTypes;

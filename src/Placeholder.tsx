@@ -31,21 +31,21 @@ const propTypes = {
    *
    * @type ('xs'|'sm'|'lg')
    */
-  size: PropTypes.string,
+  size: PropTypes.string
 };
 
-const Placeholder: BsPrefixRefForwardingComponent<'span', PlaceholderProps> =
-  React.forwardRef<HTMLElement, PlaceholderProps>(
-    ({ as: Component = 'span', ...props }, ref) => {
-      const placeholderProps = usePlaceholder(props);
+const Placeholder: BsPrefixRefForwardingComponent<'span', PlaceholderProps> = React.forwardRef<
+  HTMLElement,
+  PlaceholderProps
+>(({ as: Component = 'span', ...props }, ref) => {
+  const placeholderProps = usePlaceholder(props);
 
-      return <Component {...placeholderProps} ref={ref} />;
-    },
-  );
+  return <Component {...placeholderProps} ref={ref} />;
+});
 
 Placeholder.displayName = 'Placeholder';
 Placeholder.propTypes = propTypes;
 
 export default Object.assign(Placeholder, {
-  Button: PlaceholderButton,
+  Button: PlaceholderButton
 });

@@ -9,9 +9,7 @@ import FormContext from './FormContext';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-interface FormLabelBaseProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {
+interface FormLabelBaseProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {
   htmlFor?: string;
   visuallyHidden?: boolean;
 }
@@ -60,62 +58,55 @@ const propTypes = {
   visuallyHidden: PropTypes.bool,
 
   /** Set a custom element for this component */
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const FormLabel: BsPrefixRefForwardingComponent<'label', FormLabelProps> =
-  React.forwardRef<HTMLElement, FormLabelProps>(
-    (
-      {
-        // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as: Component = 'label',
-        bsPrefix,
-        column = false,
-        visuallyHidden = false,
-        className,
-        htmlFor,
-        ...props
-      },
-      ref,
-    ) => {
-      const { controlId } = useContext(FormContext);
-
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'form-label');
-
-      let columnClass = 'col-form-label';
-      if (typeof column === 'string')
-        columnClass = `${columnClass} ${columnClass}-${column}`;
-
-      const classes = classNames(
-        className,
-        bsPrefix,
-        visuallyHidden && 'visually-hidden',
-        column && columnClass,
-      );
-
-      warning(
-        controlId == null || !htmlFor,
-        '`controlId` is ignored on `<FormLabel>` when `htmlFor` is specified.',
-      );
-      htmlFor = htmlFor || controlId;
-
-      if (column)
-        return (
-          <Col
-            ref={ref as React.ForwardedRef<HTMLLabelElement>}
-            as="label"
-            className={classes}
-            htmlFor={htmlFor}
-            {...props}
-          />
-        );
-
-      return (
-        // eslint-disable-next-line jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control
-        <Component ref={ref} className={classes} htmlFor={htmlFor} {...props} />
-      );
+const FormLabel: BsPrefixRefForwardingComponent<'label', FormLabelProps> = React.forwardRef<
+  HTMLElement,
+  FormLabelProps
+>(
+  (
+    {
+      // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+      as: Component = 'label',
+      bsPrefix,
+      column = false,
+      visuallyHidden = false,
+      className,
+      htmlFor,
+      ...props
     },
-  );
+    ref
+  ) => {
+    const { controlId } = useContext(FormContext);
+
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'form-label');
+
+    let columnClass = 'col-form-label';
+    if (typeof column === 'string') columnClass = `${columnClass} ${columnClass}-${column}`;
+
+    const classes = classNames(className, bsPrefix, visuallyHidden && 'visually-hidden', column && columnClass);
+
+    warning(controlId == null || !htmlFor, '`controlId` is ignored on `<FormLabel>` when `htmlFor` is specified.');
+    htmlFor = htmlFor || controlId;
+
+    if (column)
+      return (
+        <Col
+          ref={ref as React.ForwardedRef<HTMLLabelElement>}
+          as="label"
+          className={classes}
+          htmlFor={htmlFor}
+          {...props}
+        />
+      );
+
+    return (
+      // eslint-disable-next-line jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control
+      <Component ref={ref} className={classes} htmlFor={htmlFor} {...props} />
+    );
+  }
+);
 
 FormLabel.displayName = 'FormLabel';
 FormLabel.propTypes = propTypes;

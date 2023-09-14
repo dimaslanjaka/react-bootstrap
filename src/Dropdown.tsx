@@ -2,10 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useContext, useMemo } from 'react';
-import BaseDropdown, {
-  DropdownProps as BaseDropdownProps,
-  ToggleMetadata,
-} from '@restart/ui/Dropdown';
+import BaseDropdown, { DropdownProps as BaseDropdownProps, ToggleMetadata } from '@restart/ui/Dropdown';
 import { useUncontrolled } from 'uncontrollable';
 import useEventCallback from '@restart/hooks/useEventCallback';
 import DropdownContext, { DropDirection } from './DropdownContext';
@@ -37,14 +34,7 @@ const propTypes = {
   /**
    * Determines the direction and location of the Menu in relation to it's Toggle.
    */
-  drop: PropTypes.oneOf<DropDirection>([
-    'up',
-    'up-centered',
-    'start',
-    'end',
-    'down',
-    'down-centered',
-  ]),
+  drop: PropTypes.oneOf<DropDirection>(['up', 'up-centered', 'start', 'end', 'down', 'down-centered']),
 
   as: PropTypes.elementType,
 
@@ -107,11 +97,11 @@ const propTypes = {
    * Controls the auto close behaviour of the dropdown when clicking outside of
    * the button or the list.
    */
-  autoClose: PropTypes.oneOf([true, 'outside', 'inside', false]),
+  autoClose: PropTypes.oneOf([true, 'outside', 'inside', false])
 };
 
-const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
-  React.forwardRef<HTMLElement, DropdownProps>((pProps, ref) => {
+const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> = React.forwardRef<HTMLElement, DropdownProps>(
+  (pProps, ref) => {
     const {
       bsPrefix,
       drop = 'down',
@@ -145,18 +135,15 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
       return true;
     };
 
-    const handleToggle = useEventCallback(
-      (nextShow: boolean, meta: ToggleMetadata) => {
-        if (
-          meta.originalEvent!.currentTarget === document &&
-          (meta.source !== 'keydown' ||
-            (meta.originalEvent as any).key === 'Escape')
-        )
-          meta.source = 'rootClose';
+    const handleToggle = useEventCallback((nextShow: boolean, meta: ToggleMetadata) => {
+      if (
+        meta.originalEvent!.currentTarget === document &&
+        (meta.source !== 'keydown' || (meta.originalEvent as any).key === 'Escape')
+      )
+        meta.source = 'rootClose';
 
-        if (isClosingPermitted(meta.source!)) onToggle?.(nextShow, meta);
-      },
-    );
+      if (isClosingPermitted(meta.source!)) onToggle?.(nextShow, meta);
+    });
 
     const alignEnd = align === 'end';
     const placement = getDropdownMenuPlacement(alignEnd, drop, isRTL);
@@ -165,9 +152,9 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
       () => ({
         align,
         drop,
-        isRTL,
+        isRTL
       }),
-      [align, drop, isRTL],
+      [align, drop, isRTL]
     );
 
     const directionClasses = {
@@ -176,7 +163,7 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
       up: 'dropup',
       'up-centered': 'dropup-center dropup',
       end: 'dropend',
-      start: 'dropstart',
+      start: 'dropstart'
     };
 
     return (
@@ -195,17 +182,14 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
             <Component
               {...props}
               ref={ref}
-              className={classNames(
-                className,
-                show && 'show',
-                directionClasses[drop!],
-              )}
+              className={classNames(className, show && 'show', directionClasses[drop!])}
             />
           )}
         </BaseDropdown>
       </DropdownContext.Provider>
     );
-  });
+  }
+);
 
 Dropdown.displayName = 'Dropdown';
 Dropdown.propTypes = propTypes;
@@ -216,5 +200,5 @@ export default Object.assign(Dropdown, {
   Item: DropdownItem,
   ItemText: DropdownItemText,
   Divider: DropdownDivider,
-  Header: DropdownHeader,
+  Header: DropdownHeader
 });

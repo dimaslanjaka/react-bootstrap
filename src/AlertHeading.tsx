@@ -7,23 +7,15 @@ import type { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 const DivStyledAsH4 = divWithClassName('h4');
 DivStyledAsH4.displayName = 'DivStyledAsH4';
 
-export interface AlertHeadingProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {}
+export interface AlertHeadingProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {}
 
-const AlertHeading: BsPrefixRefForwardingComponent<'div', AlertHeadingProps> =
-  React.forwardRef<HTMLElement, AlertHeadingProps>(
-    ({ className, bsPrefix, as: Component = DivStyledAsH4, ...props }, ref) => {
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'alert-heading');
-      return (
-        <Component
-          ref={ref}
-          className={classNames(className, bsPrefix)}
-          {...props}
-        />
-      );
-    },
-  );
+const AlertHeading: BsPrefixRefForwardingComponent<'div', AlertHeadingProps> = React.forwardRef<
+  HTMLElement,
+  AlertHeadingProps
+>(({ className, bsPrefix, as: Component = DivStyledAsH4, ...props }, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'alert-heading');
+  return <Component ref={ref} className={classNames(className, bsPrefix)} {...props} />;
+});
 
 AlertHeading.displayName = 'AlertHeading';
 

@@ -46,10 +46,7 @@ const propTypes = {
    * @type {Transition | false}
    * @default {Fade}
    */
-  transition: PropTypes.oneOfType([
-    PropTypes.oneOf([false]),
-    PropTypes.elementType,
-  ]),
+  transition: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.elementType]),
 
   /**
    * HTML id attribute, required if no `generateChildId` prop
@@ -91,7 +88,7 @@ const propTypes = {
   /**
    * Have all `Tab`s evenly fill all available width.
    */
-  justify: PropTypes.bool,
+  justify: PropTypes.bool
 };
 
 function getDefaultActiveKey(children) {
@@ -140,7 +137,7 @@ const Tabs = (props: TabsProps) => {
     activeKey = getDefaultActiveKey(children),
     ...controlledProps
   } = useUncontrolled(props, {
-    activeKey: 'onSelect',
+    activeKey: 'onSelect'
   });
 
   return (

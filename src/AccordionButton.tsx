@@ -2,19 +2,14 @@ import * as React from 'react';
 import { useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import AccordionContext, {
-  isAccordionItemSelected,
-  AccordionEventKey,
-} from './AccordionContext';
+import AccordionContext, { isAccordionItemSelected, AccordionEventKey } from './AccordionContext';
 import AccordionItemContext from './AccordionItemContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { useBootstrapPrefix } from './ThemeProvider';
 
 type EventHandler = React.EventHandler<React.SyntheticEvent>;
 
-export interface AccordionButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    BsPrefixProps {}
+export interface AccordionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, BsPrefixProps {}
 
 const propTypes = {
   /** Set a custom element for this component */
@@ -24,13 +19,10 @@ const propTypes = {
   bsPrefix: PropTypes.string,
 
   /** A callback function for when this component is clicked */
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
-export function useAccordionButton(
-  eventKey: string,
-  onClick?: EventHandler,
-): EventHandler {
+export function useAccordionButton(eventKey: string, onClick?: EventHandler): EventHandler {
   const { activeEventKey, onSelect, alwaysOpen } = useContext(AccordionContext);
 
   return (e) => {
@@ -38,8 +30,7 @@ export function useAccordionButton(
       Compare the event key in context with the given event key.
       If they are the same, then collapse the component.
     */
-    let eventKeyPassed: AccordionEventKey =
-      eventKey === activeEventKey ? null : eventKey;
+    let eventKeyPassed: AccordionEventKey = eventKey === activeEventKey ? null : eventKey;
     if (alwaysOpen) {
       if (Array.isArray(activeEventKey)) {
         if (activeEventKey.includes(eventKey)) {
@@ -58,10 +49,10 @@ export function useAccordionButton(
   };
 }
 
-const AccordionButton: BsPrefixRefForwardingComponent<
-  'div',
+const AccordionButton: BsPrefixRefForwardingComponent<'div', AccordionButtonProps> = React.forwardRef<
+  HTMLButtonElement,
   AccordionButtonProps
-> = React.forwardRef<HTMLButtonElement, AccordionButtonProps>(
+>(
   (
     {
       // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
@@ -71,7 +62,7 @@ const AccordionButton: BsPrefixRefForwardingComponent<
       onClick,
       ...props
     },
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'accordion-button');
     const { eventKey } = useContext(AccordionItemContext);
@@ -87,19 +78,11 @@ const AccordionButton: BsPrefixRefForwardingComponent<
         ref={ref}
         onClick={accordionOnClick}
         {...props}
-        aria-expanded={
-          Array.isArray(activeEventKey)
-            ? activeEventKey.includes(eventKey)
-            : eventKey === activeEventKey
-        }
-        className={classNames(
-          className,
-          bsPrefix,
-          !isAccordionItemSelected(activeEventKey, eventKey) && 'collapsed',
-        )}
+        aria-expanded={Array.isArray(activeEventKey) ? activeEventKey.includes(eventKey) : eventKey === activeEventKey}
+        className={classNames(className, bsPrefix, !isAccordionItemSelected(activeEventKey, eventKey) && 'collapsed')}
       />
     );
-  },
+  }
 );
 
 AccordionButton.propTypes = propTypes;

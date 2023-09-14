@@ -71,71 +71,63 @@ const propTypes = {
    * `false` to disable. A custom `react-transition-group` Transition can also
    * be provided.
    */
-  transition: PropTypes.oneOfType([PropTypes.bool, elementType]),
+  transition: PropTypes.oneOfType([PropTypes.bool, elementType])
 };
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-  (uncontrolledProps: AlertProps, ref) => {
-    const {
-      bsPrefix,
-      show = true,
-      closeLabel = 'Close alert',
-      closeVariant,
-      className,
-      children,
-      variant = 'primary',
-      onClose,
-      dismissible,
-      transition = Fade,
-      ...props
-    } = useUncontrolled(uncontrolledProps, {
-      show: 'onClose',
-    });
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>((uncontrolledProps: AlertProps, ref) => {
+  const {
+    bsPrefix,
+    show = true,
+    closeLabel = 'Close alert',
+    closeVariant,
+    className,
+    children,
+    variant = 'primary',
+    onClose,
+    dismissible,
+    transition = Fade,
+    ...props
+  } = useUncontrolled(uncontrolledProps, {
+    show: 'onClose'
+  });
 
-    const prefix = useBootstrapPrefix(bsPrefix, 'alert');
-    const handleClose = useEventCallback((e) => {
-      if (onClose) {
-        onClose(false, e);
-      }
-    });
-    const Transition = transition === true ? Fade : transition;
-    const alert = (
-      <div
-        role="alert"
-        {...(!Transition ? props : undefined)}
-        ref={ref}
-        className={classNames(
-          className,
-          prefix,
-          variant && `${prefix}-${variant}`,
-          dismissible && `${prefix}-dismissible`,
-        )}
-      >
-        {dismissible && (
-          <CloseButton
-            onClick={handleClose}
-            aria-label={closeLabel}
-            variant={closeVariant}
-          />
-        )}
-        {children}
-      </div>
-    );
+  const prefix = useBootstrapPrefix(bsPrefix, 'alert');
+  const handleClose = useEventCallback((e) => {
+    if (onClose) {
+      onClose(false, e);
+    }
+  });
+  const Transition = transition === true ? Fade : transition;
+  const alert = (
+    <div
+      role="alert"
+      {...(!Transition ? props : undefined)}
+      ref={ref}
+      className={classNames(
+        className,
+        prefix,
+        variant && `${prefix}-${variant}`,
+        dismissible && `${prefix}-dismissible`
+      )}
+    >
+      {dismissible && <CloseButton onClick={handleClose} aria-label={closeLabel} variant={closeVariant} />}
+      {children}
+    </div>
+  );
 
-    if (!Transition) return show ? alert : null;
+  if (!Transition) return show ? alert : null;
 
-    return (
-      <Transition unmountOnExit {...props} ref={undefined} in={show}>
-        {alert}
-      </Transition>
-    );
-  },
-);
+  return (
+    <Transition unmountOnExit {...props} ref={undefined} in={show}>
+      {alert}
+    </Transition>
+  );
+});
 
 Alert.displayName = 'Alert';
 Alert.propTypes = propTypes;
 
 export default Object.assign(Alert, {
   Link: AlertLink,
-  Heading: AlertHeading,
+  Heading: AlertHeading
 });

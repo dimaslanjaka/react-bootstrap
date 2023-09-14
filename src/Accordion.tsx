@@ -7,17 +7,12 @@ import { useBootstrapPrefix } from './ThemeProvider';
 import AccordionBody from './AccordionBody';
 import AccordionButton from './AccordionButton';
 import AccordionCollapse from './AccordionCollapse';
-import AccordionContext, {
-  AccordionSelectCallback,
-  AccordionEventKey,
-} from './AccordionContext';
+import AccordionContext, { AccordionSelectCallback, AccordionEventKey } from './AccordionContext';
 import AccordionHeader from './AccordionHeader';
 import AccordionItem from './AccordionItem';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface AccordionProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>,
-    BsPrefixProps {
+export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>, BsPrefixProps {
   activeKey?: AccordionEventKey;
   defaultActiveKey?: AccordionEventKey;
   onSelect?: AccordionSelectCallback;
@@ -53,11 +48,11 @@ const propTypes = {
   flush: PropTypes.bool,
 
   /** Allow accordion items to stay open when another item is opened */
-  alwaysOpen: PropTypes.bool,
+  alwaysOpen: PropTypes.bool
 };
 
-const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> =
-  React.forwardRef<HTMLElement, AccordionProps>((props, ref) => {
+const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> = React.forwardRef<HTMLElement, AccordionProps>(
+  (props, ref) => {
     const {
       // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
       as: Component = 'div',
@@ -69,7 +64,7 @@ const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> =
       alwaysOpen,
       ...controlledProps
     } = useUncontrolled(props, {
-      activeKey: 'onSelect',
+      activeKey: 'onSelect'
     });
 
     const prefix = useBootstrapPrefix(bsPrefix, 'accordion');
@@ -77,9 +72,9 @@ const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> =
       () => ({
         activeEventKey: activeKey,
         onSelect,
-        alwaysOpen,
+        alwaysOpen
       }),
-      [activeKey, onSelect, alwaysOpen],
+      [activeKey, onSelect, alwaysOpen]
     );
 
     return (
@@ -91,7 +86,8 @@ const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> =
         />
       </AccordionContext.Provider>
     );
-  });
+  }
+);
 
 Accordion.displayName = 'Accordion';
 Accordion.propTypes = propTypes;
@@ -101,5 +97,5 @@ export default Object.assign(Accordion, {
   Collapse: AccordionCollapse,
   Item: AccordionItem,
   Header: AccordionHeader,
-  Body: AccordionBody,
+  Body: AccordionBody
 });

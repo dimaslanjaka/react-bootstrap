@@ -21,15 +21,15 @@ export function responsivePropType(propType: any) {
       md: propType,
       lg: propType,
       xl: propType,
-      xxl: propType,
-    }),
+      xxl: propType
+    })
   ]);
 }
 
 export default function createUtilityClassName(
   utilityValues: Record<string, ResponsiveUtilityValue<unknown>>,
   breakpoints = DEFAULT_BREAKPOINTS,
-  minBreakpoint = DEFAULT_MIN_BREAKPOINT,
+  minBreakpoint = DEFAULT_MIN_BREAKPOINT
 ) {
   const classes: string[] = [];
   Object.entries(utilityValues).forEach(([utilName, utilValue]) => {

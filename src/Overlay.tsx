@@ -2,10 +2,7 @@ import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import BaseOverlay, {
-  OverlayProps as BaseOverlayProps,
-  OverlayArrowProps,
-} from '@restart/ui/Overlay';
+import BaseOverlay, { OverlayProps as BaseOverlayProps, OverlayArrowProps } from '@restart/ui/Overlay';
 import { State } from '@restart/ui/usePopper';
 import { componentOrElement, elementType } from 'prop-types-extra';
 import useEventCallback from '@restart/hooks/useEventCallback';
@@ -36,8 +33,7 @@ export type OverlayChildren =
   | React.ReactElement<OverlayInjectedProps>
   | ((injected: OverlayInjectedProps) => React.ReactNode);
 
-export interface OverlayProps
-  extends Omit<BaseOverlayProps, 'children' | 'transition' | 'rootCloseEvent'> {
+export interface OverlayProps extends Omit<BaseOverlayProps, 'children' | 'transition' | 'rootCloseEvent'> {
   children: OverlayChildren;
   transition?: TransitionType;
   placement?: Placement;
@@ -137,8 +133,8 @@ const propTypes = {
     'bottom-start',
     'left-end',
     'left',
-    'left-start',
-  ]),
+    'left-start'
+  ])
 };
 
 function wrapRefs(props, arrowProps) {
@@ -146,8 +142,7 @@ function wrapRefs(props, arrowProps) {
   const { ref: aRef } = arrowProps;
 
   props.ref = ref.__wrapped || (ref.__wrapped = (r) => ref(safeFindDOMNode(r)));
-  arrowProps.ref =
-    aRef.__wrapped || (aRef.__wrapped = (r) => aRef(safeFindDOMNode(r)));
+  arrowProps.ref = aRef.__wrapped || (aRef.__wrapped = (r) => aRef(safeFindDOMNode(r)));
 }
 
 const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
@@ -161,17 +156,14 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
       show: outerShow = false,
       ...outerProps
     },
-    outerRef,
+    outerRef
   ) => {
     const popperRef = useRef<Partial<PopperRef>>({});
-    const [firstRenderedState, setFirstRenderedState] = useState<State | null>(
-      null,
-    );
+    const [firstRenderedState, setFirstRenderedState] = useState<State | null>(null);
     const [ref, modifiers] = useOverlayOffset(outerProps.offset);
     const mergedRef = useMergedRefs(outerRef, ref);
 
-    const actualTransition =
-      transition === true ? Fade : transition || undefined;
+    const actualTransition = transition === true ? Fade : transition || undefined;
 
     const handleFirstUpdate = useEventCallback((state) => {
       setFirstRenderedState(state);
@@ -198,7 +190,7 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
         popperConfig={{
           ...popperConfig,
           modifiers: modifiers.concat(popperConfig.modifiers || []),
-          onFirstUpdate: handleFirstUpdate,
+          onFirstUpdate: handleFirstUpdate
         }}
         transition={actualTransition}
         rootClose={rootClose}
@@ -213,9 +205,8 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
             state: popperObj?.state,
             scheduleUpdate: popperObj?.update,
             placement: updatedPlacement,
-            outOfBoundaries:
-              popperObj?.state?.modifiersData.hide?.isReferenceHidden || false,
-            strategy: popperConfig.strategy,
+            outOfBoundaries: popperObj?.state?.modifiersData.hide?.isReferenceHidden || false,
+            strategy: popperConfig.strategy
           });
 
           const hasDoneInitialMeasure = !!firstRenderedState;
@@ -228,7 +219,7 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
               ...(!transition && show && { className: 'show' }),
               popper,
               arrowProps,
-              hasDoneInitialMeasure,
+              hasDoneInitialMeasure
             });
 
           return React.cloneElement(overlay as React.ReactElement, {
@@ -237,19 +228,16 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
             arrowProps,
             popper,
             hasDoneInitialMeasure,
-            className: classNames(
-              (overlay as React.ReactElement).props.className,
-              !transition && show && 'show',
-            ),
+            className: classNames((overlay as React.ReactElement).props.className, !transition && show && 'show'),
             style: {
               ...(overlay as React.ReactElement).props.style,
-              ...overlayProps.style,
-            },
+              ...overlayProps.style
+            }
           });
         }}
       </BaseOverlay>
     );
-  },
+  }
 );
 
 Overlay.displayName = 'Overlay';

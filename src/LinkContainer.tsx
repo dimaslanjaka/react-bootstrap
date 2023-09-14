@@ -57,23 +57,17 @@ const LinkContainer = ({
 
       navigate(to, {
         replace,
-        state,
+        state
       });
     }
   };
 
   return React.cloneElement(child, {
     ...props,
-    className: [
-      className,
-      child.props.className,
-      isActive ? activeClassName : null,
-    ]
-      .join(' ')
-      .trim(),
+    className: [className, child.props.className, isActive ? activeClassName : null].join(' ').trim(),
     style: isActive ? { ...style, ...activeStyle } : style,
     href,
-    onClick: handleClick,
+    onClick: handleClick
   });
 };
 
@@ -85,13 +79,9 @@ LinkContainer.propTypes = {
   state: PropTypes.object,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
-  style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ),
-  activeStyle: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ),
-  isActive: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  activeStyle: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  isActive: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
 };
 
 LinkContainer.defaultProps = {
@@ -101,7 +91,7 @@ LinkContainer.defaultProps = {
   className: null,
   style: null,
   activeStyle: null,
-  isActive: null,
+  isActive: null
 };
 
 export default LinkContainer;

@@ -12,13 +12,7 @@ export interface UsePlaceholderProps extends Omit<ColProps, 'as'> {
   size?: PlaceholderSize;
 }
 
-export default function usePlaceholder({
-  animation,
-  bg,
-  bsPrefix,
-  size,
-  ...props
-}: UsePlaceholderProps) {
+export default function usePlaceholder({ animation, bg, bsPrefix, size, ...props }: UsePlaceholderProps) {
   bsPrefix = useBootstrapPrefix(bsPrefix, 'placeholder');
   const [{ className, ...colProps }] = useCol(props);
 
@@ -28,7 +22,7 @@ export default function usePlaceholder({
       className,
       animation ? `${bsPrefix}-${animation}` : bsPrefix,
       size && `${bsPrefix}-${size}`,
-      bg && `bg-${bg}`,
-    ),
+      bg && `bg-${bg}`
+    )
   };
 }

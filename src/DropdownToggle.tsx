@@ -16,14 +16,9 @@ export interface DropdownToggleProps extends Omit<ButtonProps, 'as'> {
   childBsPrefix?: string;
 }
 
-type DropdownToggleComponent = BsPrefixRefForwardingComponent<
-  'button',
-  DropdownToggleProps
->;
+type DropdownToggleComponent = BsPrefixRefForwardingComponent<'button', DropdownToggleProps>;
 
-export type PropsFromToggle = Partial<
-  Pick<React.ComponentPropsWithRef<DropdownToggleComponent>, CommonButtonProps>
->;
+export type PropsFromToggle = Partial<Pick<React.ComponentPropsWithRef<DropdownToggleComponent>, CommonButtonProps>>;
 
 const propTypes = {
   /**
@@ -45,7 +40,7 @@ const propTypes = {
    * to passthrough to the underlying button or whatever from DropdownButton
    * @private
    */
-  childBsPrefix: PropTypes.string,
+  childBsPrefix: PropTypes.string
 };
 
 const DropdownToggle: DropdownToggleComponent = React.forwardRef(
@@ -59,7 +54,7 @@ const DropdownToggle: DropdownToggleComponent = React.forwardRef(
       as: Component = Button,
       ...props
     }: DropdownToggleProps,
-    ref,
+    ref
   ) => {
     const prefix = useBootstrapPrefix(bsPrefix, 'dropdown-toggle');
     const dropdownContext = useContext(DropdownContext);
@@ -70,26 +65,18 @@ const DropdownToggle: DropdownToggleComponent = React.forwardRef(
 
     const [toggleProps] = useDropdownToggle();
 
-    toggleProps.ref = useMergedRefs(
-      toggleProps.ref,
-      useWrappedRefWithWarning(ref, 'DropdownToggle'),
-    );
+    toggleProps.ref = useMergedRefs(toggleProps.ref, useWrappedRefWithWarning(ref, 'DropdownToggle'));
 
     // This intentionally forwards size and variant (if set) to the
     // underlying component, to allow it to render size and style variants.
     return (
       <Component
-        className={classNames(
-          className,
-          prefix,
-          split && `${prefix}-split`,
-          dropdownContext?.show && 'show',
-        )}
+        className={classNames(className, prefix, split && `${prefix}-split`, dropdownContext?.show && 'show')}
         {...toggleProps}
         {...props}
       />
     );
-  },
+  }
 );
 
 DropdownToggle.displayName = 'DropdownToggle';

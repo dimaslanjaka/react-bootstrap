@@ -8,9 +8,7 @@ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
 type FormCheckInputType = 'checkbox' | 'radio';
 
-export interface FormCheckInputProps
-  extends BsPrefixProps,
-    React.InputHTMLAttributes<HTMLInputElement> {
+export interface FormCheckInputProps extends BsPrefixProps, React.InputHTMLAttributes<HTMLInputElement> {
   type?: FormCheckInputType;
   isValid?: boolean;
   isInvalid?: boolean;
@@ -39,13 +37,13 @@ const propTypes = {
   isValid: PropTypes.bool,
 
   /** Manually style the input as invalid */
-  isInvalid: PropTypes.bool,
+  isInvalid: PropTypes.bool
 };
 
-const FormCheckInput: BsPrefixRefForwardingComponent<
-  'input',
+const FormCheckInput: BsPrefixRefForwardingComponent<'input', FormCheckInputProps> = React.forwardRef<
+  HTMLInputElement,
   FormCheckInputProps
-> = React.forwardRef<HTMLInputElement, FormCheckInputProps>(
+>(
   (
     {
       id,
@@ -58,7 +56,7 @@ const FormCheckInput: BsPrefixRefForwardingComponent<
       as: Component = 'input',
       ...props
     },
-    ref,
+    ref
   ) => {
     const { controlId } = useContext(FormContext);
     bsPrefix = useBootstrapPrefix(bsPrefix, 'form-check-input');
@@ -69,15 +67,10 @@ const FormCheckInput: BsPrefixRefForwardingComponent<
         ref={ref}
         type={type}
         id={id || controlId}
-        className={classNames(
-          className,
-          bsPrefix,
-          isValid && 'is-valid',
-          isInvalid && 'is-invalid',
-        )}
+        className={classNames(className, bsPrefix, isValid && 'is-valid', isInvalid && 'is-invalid')}
       />
     );
-  },
+  }
 );
 
 FormCheckInput.displayName = 'FormCheckInput';

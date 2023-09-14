@@ -6,9 +6,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixOnlyProps } from './helpers';
 import FormContext from './FormContext';
 
-export interface FormRangeProps
-  extends BsPrefixOnlyProps,
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {}
+export interface FormRangeProps extends BsPrefixOnlyProps, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {}
 
 const propTypes = {
   /**
@@ -24,11 +22,7 @@ const propTypes = {
    *
    * @controllable onChange
    * */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string.isRequired),
-    PropTypes.number,
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string.isRequired), PropTypes.number]),
 
   /** A callback fired when the `value` prop changes */
   onChange: PropTypes.func,
@@ -36,25 +30,15 @@ const propTypes = {
   /**
    * Uses `controlId` from `<FormGroup>` if not explicitly specified.
    */
-  id: PropTypes.string,
+  id: PropTypes.string
 };
 
-const FormRange = React.forwardRef<HTMLInputElement, FormRangeProps>(
-  ({ bsPrefix, className, id, ...props }, ref) => {
-    const { controlId } = useContext(FormContext);
-    bsPrefix = useBootstrapPrefix(bsPrefix, 'form-range');
+const FormRange = React.forwardRef<HTMLInputElement, FormRangeProps>(({ bsPrefix, className, id, ...props }, ref) => {
+  const { controlId } = useContext(FormContext);
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'form-range');
 
-    return (
-      <input
-        {...props}
-        type="range"
-        ref={ref}
-        className={classNames(className, bsPrefix)}
-        id={id || controlId}
-      />
-    );
-  },
-);
+  return <input {...props} type="range" ref={ref} className={classNames(className, bsPrefix)} id={id || controlId} />;
+});
 
 FormRange.displayName = 'FormRange';
 FormRange.propTypes = propTypes;

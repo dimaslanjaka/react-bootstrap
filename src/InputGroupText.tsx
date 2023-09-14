@@ -3,25 +3,15 @@ import classNames from 'classnames';
 import { useBootstrapPrefix } from './ThemeProvider';
 import type { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface InputGroupTextProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {}
+export interface InputGroupTextProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {}
 
-const InputGroupText: BsPrefixRefForwardingComponent<
-  'span',
+const InputGroupText: BsPrefixRefForwardingComponent<'span', InputGroupTextProps> = React.forwardRef<
+  HTMLElement,
   InputGroupTextProps
-> = React.forwardRef<HTMLElement, InputGroupTextProps>(
-  ({ className, bsPrefix, as: Component = 'span', ...props }, ref) => {
-    bsPrefix = useBootstrapPrefix(bsPrefix, 'input-group-text');
-    return (
-      <Component
-        ref={ref}
-        className={classNames(className, bsPrefix)}
-        {...props}
-      />
-    );
-  },
-);
+>(({ className, bsPrefix, as: Component = 'span', ...props }, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'input-group-text');
+  return <Component ref={ref} className={classNames(className, bsPrefix)} {...props} />;
+});
 
 InputGroupText.displayName = 'InputGroupText';
 

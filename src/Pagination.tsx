@@ -8,9 +8,7 @@ import { BsPrefixProps } from './helpers';
 
 type PaginationSize = 'sm' | 'lg';
 
-export interface PaginationProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLUListElement> {
+export interface PaginationProps extends BsPrefixProps, React.HTMLAttributes<HTMLUListElement> {
   size?: 'sm' | 'lg';
 }
 
@@ -25,7 +23,7 @@ const propTypes = {
    *
    * @type {('sm'|'lg')}
    */
-  size: PropTypes.oneOf<PaginationSize>(['sm', 'lg']),
+  size: PropTypes.oneOf<PaginationSize>(['sm', 'lg'])
 };
 
 const Pagination = React.forwardRef<HTMLUListElement, PaginationProps>(
@@ -35,14 +33,10 @@ const Pagination = React.forwardRef<HTMLUListElement, PaginationProps>(
       <ul
         ref={ref}
         {...props}
-        className={classNames(
-          className,
-          decoratedBsPrefix,
-          size && `${decoratedBsPrefix}-${size}`,
-        )}
+        className={classNames(className, decoratedBsPrefix, size && `${decoratedBsPrefix}-${size}`)}
       />
     );
-  },
+  }
 );
 
 Pagination.propTypes = propTypes;
@@ -54,5 +48,5 @@ export default Object.assign(Pagination, {
   Ellipsis,
   Item: PageItem,
   Next,
-  Last,
+  Last
 });

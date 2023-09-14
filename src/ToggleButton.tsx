@@ -6,8 +6,7 @@ import Button, { ButtonProps } from './Button';
 
 export type ToggleButtonType = 'checkbox' | 'radio';
 
-export interface ToggleButtonProps
-  extends Omit<ButtonProps, 'onChange' | 'type'> {
+export interface ToggleButtonProps extends Omit<ButtonProps, 'onChange' | 'type'> {
   type?: ToggleButtonType;
   name?: string;
   checked?: boolean;
@@ -62,36 +61,18 @@ const propTypes = {
    * The value of the input, should be unique amongst its siblings when nested in a
    * `ToggleButtonGroup`.
    */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string.isRequired),
-    PropTypes.number,
-  ]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string.isRequired), PropTypes.number])
+    .isRequired,
 
   /**
    * A ref attached to the `<input>` element
    * @type {ReactRef}
    */
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.any]),
+  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.any])
 };
 
 const ToggleButton = React.forwardRef<HTMLLabelElement, ToggleButtonProps>(
-  (
-    {
-      bsPrefix,
-      name,
-      className,
-      checked,
-      type,
-      onChange,
-      value,
-      disabled,
-      id,
-      inputRef,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ bsPrefix, name, className, checked, type, onChange, value, disabled, id, inputRef, ...props }, ref) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'btn-check');
 
     return (
@@ -119,7 +100,7 @@ const ToggleButton = React.forwardRef<HTMLLabelElement, ToggleButtonProps>(
         />
       </>
     );
-  },
+  }
 );
 
 ToggleButton.propTypes = propTypes;

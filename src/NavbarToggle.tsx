@@ -8,9 +8,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 import NavbarContext from './NavbarContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface NavbarToggleProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface NavbarToggleProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {
   label?: string;
 }
 
@@ -29,13 +27,13 @@ const propTypes = {
    */
   children: PropTypes.node,
 
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const NavbarToggle: BsPrefixRefForwardingComponent<
-  'button',
+const NavbarToggle: BsPrefixRefForwardingComponent<'button', NavbarToggleProps> = React.forwardRef<
+  HTMLElement,
   NavbarToggleProps
-> = React.forwardRef<HTMLElement, NavbarToggleProps>(
+>(
   (
     {
       bsPrefix,
@@ -47,7 +45,7 @@ const NavbarToggle: BsPrefixRefForwardingComponent<
       onClick,
       ...props
     },
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'navbar-toggler');
 
@@ -73,7 +71,7 @@ const NavbarToggle: BsPrefixRefForwardingComponent<
         {children || <span className={`${bsPrefix}-icon`} />}
       </Component>
     );
-  },
+  }
 );
 
 NavbarToggle.displayName = 'NavbarToggle';

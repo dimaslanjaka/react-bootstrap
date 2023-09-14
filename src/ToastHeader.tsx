@@ -9,9 +9,7 @@ import CloseButton, { CloseButtonVariant } from './CloseButton';
 import ToastContext from './ToastContext';
 import { BsPrefixOnlyProps } from './helpers';
 
-export interface ToastHeaderProps
-  extends BsPrefixOnlyProps,
-    React.HTMLAttributes<HTMLDivElement> {
+export interface ToastHeaderProps extends BsPrefixOnlyProps, React.HTMLAttributes<HTMLDivElement> {
   closeLabel?: string;
   closeVariant?: CloseButtonVariant;
   closeButton?: boolean;
@@ -35,7 +33,7 @@ const propTypes = {
   /**
    * Specify whether the Component should contain a close button
    */
-  closeButton: PropTypes.bool,
+  closeButton: PropTypes.bool
 };
 
 const ToastHeader = React.forwardRef<HTMLDivElement, ToastHeaderProps>(
@@ -49,7 +47,7 @@ const ToastHeader = React.forwardRef<HTMLDivElement, ToastHeaderProps>(
       children,
       ...props
     }: ToastHeaderProps,
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'toast-header');
 
@@ -64,16 +62,11 @@ const ToastHeader = React.forwardRef<HTMLDivElement, ToastHeaderProps>(
         {children}
 
         {closeButton && (
-          <CloseButton
-            aria-label={closeLabel}
-            variant={closeVariant}
-            onClick={handleClick}
-            data-dismiss="toast"
-          />
+          <CloseButton aria-label={closeLabel} variant={closeVariant} onClick={handleClick} data-dismiss="toast" />
         )}
       </div>
     );
-  },
+  }
 );
 
 ToastHeader.displayName = 'ToastHeader';

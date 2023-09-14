@@ -1,19 +1,13 @@
 import css from 'dom-helpers/css';
 import transitionEnd from 'dom-helpers/transitionEnd';
 
-function parseDuration(
-  node: HTMLElement,
-  property: 'transitionDuration' | 'transitionDelay',
-) {
+function parseDuration(node: HTMLElement, property: 'transitionDuration' | 'transitionDelay') {
   const str = css(node, property) || '';
   const mult = str.indexOf('ms') === -1 ? 1000 : 1;
   return parseFloat(str) * mult;
 }
 
-export default function transitionEndListener(
-  element: HTMLElement,
-  handler: (e: TransitionEvent) => void,
-) {
+export default function transitionEndListener(element: HTMLElement, handler: (e: TransitionEvent) => void) {
   const duration = parseDuration(element, 'transitionDuration');
   const delay = parseDuration(element, 'transitionDelay');
   const remove = transitionEnd(
@@ -24,6 +18,6 @@ export default function transitionEndListener(
         handler(e);
       }
     },
-    duration + delay,
+    duration + delay
   );
 }

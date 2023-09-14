@@ -1,21 +1,14 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import Transition, {
-  TransitionStatus,
-  ENTERED,
-  ENTERING,
-  EXITING,
-} from 'react-transition-group/Transition';
+import Transition, { TransitionStatus, ENTERED, ENTERING, EXITING } from 'react-transition-group/Transition';
 import { TransitionCallbacks } from '@restart/ui/types';
 import transitionEndListener from './transitionEndListener';
 import { BsPrefixOnlyProps } from './helpers';
 import TransitionWrapper from './TransitionWrapper';
 import { useBootstrapPrefix } from './ThemeProvider';
 
-export interface OffcanvasTogglingProps
-  extends TransitionCallbacks,
-    BsPrefixOnlyProps {
+export interface OffcanvasTogglingProps extends TransitionCallbacks, BsPrefixOnlyProps {
   className?: string;
   in?: boolean;
   mountOnEnter?: boolean;
@@ -77,18 +70,15 @@ const propTypes = {
   /**
    * Callback fired after the component has faded out
    */
-  onExited: PropTypes.func,
+  onExited: PropTypes.func
 };
 
 const transitionStyles = {
   [ENTERING]: 'show',
-  [ENTERED]: 'show',
+  [ENTERED]: 'show'
 };
 
-const OffcanvasToggling = React.forwardRef<
-  Transition<any>,
-  OffcanvasTogglingProps
->(
+const OffcanvasToggling = React.forwardRef<Transition<any>, OffcanvasTogglingProps>(
   (
     {
       bsPrefix,
@@ -100,7 +90,7 @@ const OffcanvasToggling = React.forwardRef<
       appear = false,
       ...props
     },
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'offcanvas');
 
@@ -121,15 +111,14 @@ const OffcanvasToggling = React.forwardRef<
             className: classNames(
               className,
               children.props.className,
-              (status === ENTERING || status === EXITING) &&
-                `${bsPrefix}-toggling`,
-              transitionStyles[status],
-            ),
+              (status === ENTERING || status === EXITING) && `${bsPrefix}-toggling`,
+              transitionStyles[status]
+            )
           })
         }
       </TransitionWrapper>
     );
-  },
+  }
 );
 
 OffcanvasToggling.propTypes = propTypes as any;

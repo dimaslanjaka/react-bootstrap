@@ -7,9 +7,7 @@ import Tooltip from './Tooltip';
 
 // This is meant for internal use.
 // This applies a custom offset to the overlay if it's a popover or tooltip.
-export default function useOverlayOffset(
-  customOffset?: Offset,
-): [React.RefObject<HTMLElement>, Options['modifiers']] {
+export default function useOverlayOffset(customOffset?: Offset): [React.RefObject<HTMLElement>, Options['modifiers']] {
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const popoverClass = useBootstrapPrefix(undefined, 'popover');
   const tooltipClass = useBootstrapPrefix(undefined, 'tooltip');
@@ -33,10 +31,10 @@ export default function useOverlayOffset(
             }
           }
           return [0, 0];
-        },
-      },
+        }
+      }
     }),
-    [customOffset, popoverClass, tooltipClass],
+    [customOffset, popoverClass, tooltipClass]
   );
 
   return [overlayRef, [offset]];

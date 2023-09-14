@@ -7,10 +7,7 @@ import DropdownMenu, { DropdownMenuVariant } from './DropdownMenu';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { alignPropType } from './types';
 
-export interface DropdownButtonProps
-  extends Omit<DropdownProps, 'title'>,
-    PropsFromToggle,
-    BsPrefixProps {
+export interface DropdownButtonProps extends Omit<DropdownProps, 'title'>, PropsFromToggle, BsPrefixProps {
   title: React.ReactNode;
   menuRole?: string;
   renderMenuOnMount?: boolean;
@@ -79,7 +76,7 @@ const propTypes = {
   /** @ignore */
   variant: PropTypes.string,
   /** @ignore */
-  size: PropTypes.string,
+  size: PropTypes.string
 };
 
 /**
@@ -91,10 +88,10 @@ const propTypes = {
  * the Button `variant`, `size` and `bsPrefix` props are passed to the toggle,
  * along with menu-related props are passed to the `Dropdown.Menu`
  */
-const DropdownButton: BsPrefixRefForwardingComponent<
-  'div',
+const DropdownButton: BsPrefixRefForwardingComponent<'div', DropdownButtonProps> = React.forwardRef<
+  HTMLDivElement,
   DropdownButtonProps
-> = React.forwardRef<HTMLDivElement, DropdownButtonProps>(
+>(
   (
     {
       title,
@@ -112,17 +109,10 @@ const DropdownButton: BsPrefixRefForwardingComponent<
       flip,
       ...props
     },
-    ref,
+    ref
   ) => (
     <Dropdown ref={ref} {...props}>
-      <DropdownToggle
-        id={id}
-        href={href}
-        size={size}
-        variant={variant}
-        disabled={disabled}
-        childBsPrefix={bsPrefix}
-      >
+      <DropdownToggle id={id} href={href} size={size} variant={variant} disabled={disabled} childBsPrefix={bsPrefix}>
         {title}
       </DropdownToggle>
       <DropdownMenu
@@ -135,7 +125,7 @@ const DropdownButton: BsPrefixRefForwardingComponent<
         {children}
       </DropdownMenu>
     </Dropdown>
-  ),
+  )
 );
 
 DropdownButton.displayName = 'DropdownButton';

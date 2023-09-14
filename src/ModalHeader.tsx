@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { CloseButtonVariant } from './CloseButton';
-import AbstractModalHeader, {
-  AbstractModalHeaderProps,
-} from './AbstractModalHeader';
+import AbstractModalHeader, { AbstractModalHeaderProps } from './AbstractModalHeader';
 import { BsPrefixOnlyProps } from './helpers';
 
-export interface ModalHeaderProps
-  extends AbstractModalHeaderProps,
-    BsPrefixOnlyProps {}
+export interface ModalHeaderProps extends AbstractModalHeaderProps, BsPrefixOnlyProps {}
 
 const propTypes = {
   /**
@@ -40,20 +36,11 @@ const propTypes = {
    * a Modal component, the onHide will automatically be propagated up to the
    * parent Modal `onHide`.
    */
-  onHide: PropTypes.func,
+  onHide: PropTypes.func
 };
 
 const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
-  (
-    {
-      bsPrefix,
-      className,
-      closeLabel = 'Close',
-      closeButton = false,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ bsPrefix, className, closeLabel = 'Close', closeButton = false, ...props }, ref) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-header');
     return (
       <AbstractModalHeader
@@ -64,7 +51,7 @@ const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
         closeButton={closeButton}
       />
     );
-  },
+  }
 );
 
 ModalHeader.displayName = 'ModalHeader';

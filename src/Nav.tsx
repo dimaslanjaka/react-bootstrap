@@ -64,7 +64,7 @@ const propTypes = {
    * @type {boolean}
    */
   justify: all(PropTypes.bool, ({ justify, navbar }) =>
-    justify && navbar ? Error('justify navbar `Nav`s are not supported') : null,
+    justify && navbar ? Error('justify navbar `Nav`s are not supported') : null
   ),
 
   /**
@@ -103,65 +103,64 @@ const propTypes = {
   as: PropTypes.elementType,
 
   /** @private */
-  onKeyDown: PropTypes.func,
+  onKeyDown: PropTypes.func
 };
 
-const Nav: BsPrefixRefForwardingComponent<'div', NavProps> = React.forwardRef<
-  HTMLElement,
-  NavProps
->((uncontrolledProps, ref) => {
-  const {
-    as = 'div',
-    bsPrefix: initialBsPrefix,
-    variant,
-    fill = false,
-    justify = false,
-    navbar,
-    navbarScroll,
-    className,
-    activeKey,
-    ...props
-  } = useUncontrolled(uncontrolledProps, { activeKey: 'onSelect' });
+const Nav: BsPrefixRefForwardingComponent<'div', NavProps> = React.forwardRef<HTMLElement, NavProps>(
+  (uncontrolledProps, ref) => {
+    const {
+      as = 'div',
+      bsPrefix: initialBsPrefix,
+      variant,
+      fill = false,
+      justify = false,
+      navbar,
+      navbarScroll,
+      className,
+      activeKey,
+      ...props
+    } = useUncontrolled(uncontrolledProps, { activeKey: 'onSelect' });
 
-  const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'nav');
+    const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'nav');
 
-  let navbarBsPrefix;
-  let cardHeaderBsPrefix;
-  let isNavbar = false;
+    let navbarBsPrefix;
+    let cardHeaderBsPrefix;
+    let isNavbar = false;
 
-  const navbarContext = useContext(NavbarContext);
-  const cardHeaderContext = useContext(CardHeaderContext);
+    const navbarContext = useContext(NavbarContext);
+    const cardHeaderContext = useContext(CardHeaderContext);
 
-  if (navbarContext) {
-    navbarBsPrefix = navbarContext.bsPrefix;
-    isNavbar = navbar == null ? true : navbar;
-  } else if (cardHeaderContext) {
-    ({ cardHeaderBsPrefix } = cardHeaderContext);
+    if (navbarContext) {
+      navbarBsPrefix = navbarContext.bsPrefix;
+      isNavbar = navbar == null ? true : navbar;
+    } else if (cardHeaderContext) {
+      ({ cardHeaderBsPrefix } = cardHeaderContext);
+    }
+
+    return (
+      <BaseNav
+        as={as}
+        ref={ref}
+        activeKey={activeKey}
+        className={classNames(className, {
+          [bsPrefix]: !isNavbar,
+          [`${navbarBsPrefix}-nav`]: isNavbar,
+          [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
+          [`${cardHeaderBsPrefix}-${variant}`]: !!cardHeaderBsPrefix,
+          [`${bsPrefix}-${variant}`]: !!variant,
+          [`${bsPrefix}-fill`]: fill,
+          [`${bsPrefix}-justified`]: justify
+        })}
+        {...props}
+      />
+    );
   }
-
-  return (
-    <BaseNav
-      as={as}
-      ref={ref}
-      activeKey={activeKey}
-      className={classNames(className, {
-        [bsPrefix]: !isNavbar,
-        [`${navbarBsPrefix}-nav`]: isNavbar,
-        [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
-        [`${cardHeaderBsPrefix}-${variant}`]: !!cardHeaderBsPrefix,
-        [`${bsPrefix}-${variant}`]: !!variant,
-        [`${bsPrefix}-fill`]: fill,
-        [`${bsPrefix}-justified`]: justify,
-      })}
-      {...props}
-    />
-  );
-});
+);
 
 Nav.displayName = 'Nav';
 Nav.propTypes = propTypes;
 
 export default Object.assign(Nav, {
   Item: NavItem,
-  Link: NavLink,
+  Link: NavLink
 });

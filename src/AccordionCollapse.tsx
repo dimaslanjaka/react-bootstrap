@@ -22,42 +22,30 @@ const propTypes = {
   eventKey: PropTypes.string.isRequired,
 
   /** Children prop should only contain a single child, and is enforced as such */
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired
 };
 
 /**
  * This component accepts all of [`Collapse`'s props](/docs/utilities/transitions#collapse-1).
  */
-const AccordionCollapse: BsPrefixRefForwardingComponent<
-  'div',
+const AccordionCollapse: BsPrefixRefForwardingComponent<'div', AccordionCollapseProps> = React.forwardRef<
+  Transition<any>,
   AccordionCollapseProps
-> = React.forwardRef<Transition<any>, AccordionCollapseProps>(
-  (
-    {
-      as: Component = 'div',
-      bsPrefix,
-      className,
-      children,
-      eventKey,
-      ...props
-    },
-    ref,
-  ) => {
-    const { activeEventKey } = useContext(AccordionContext);
-    bsPrefix = useBootstrapPrefix(bsPrefix, 'accordion-collapse');
+>(({ as: Component = 'div', bsPrefix, className, children, eventKey, ...props }, ref) => {
+  const { activeEventKey } = useContext(AccordionContext);
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'accordion-collapse');
 
-    return (
-      <Collapse
-        ref={ref}
-        in={isAccordionItemSelected(activeEventKey, eventKey)}
-        {...props}
-        className={classNames(className, bsPrefix)}
-      >
-        <Component>{React.Children.only(children)}</Component>
-      </Collapse>
-    );
-  },
-) as any;
+  return (
+    <Collapse
+      ref={ref}
+      in={isAccordionItemSelected(activeEventKey, eventKey)}
+      {...props}
+      className={classNames(className, bsPrefix)}
+    >
+      <Component>{React.Children.only(children)}</Component>
+    </Collapse>
+  );
+}) as any;
 
 AccordionCollapse.propTypes = propTypes;
 AccordionCollapse.displayName = 'AccordionCollapse';

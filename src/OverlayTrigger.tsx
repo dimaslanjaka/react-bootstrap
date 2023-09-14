@@ -21,11 +21,8 @@ export type OverlayTriggerRenderProps = OverlayInjectedProps & {
   ref: React.Ref<any>;
 };
 
-export interface OverlayTriggerProps
-  extends Omit<OverlayProps, 'children' | 'target'> {
-  children:
-    | React.ReactElement
-    | ((props: OverlayTriggerRenderProps) => React.ReactNode);
+export interface OverlayTriggerProps extends Omit<OverlayProps, 'children' | 'target'> {
+  children: React.ReactElement | ((props: OverlayTriggerRenderProps) => React.ReactNode);
   trigger?: OverlayTriggerType | OverlayTriggerType[];
   delay?: OverlayDelay;
   show?: boolean;
@@ -43,7 +40,7 @@ function normalizeDelay(delay?: OverlayDelay) {
     ? delay
     : {
         show: delay,
-        hide: delay,
+        hide: delay
       };
 }
 
@@ -55,7 +52,7 @@ function handleMouseOverOut(
   // eslint-disable-next-line @typescript-eslint/no-shadow
   handler: (...args: [React.MouseEvent, ...any[]]) => any,
   args: [React.MouseEvent, ...any[]],
-  relatedNative: 'fromElement' | 'toElement',
+  relatedNative: 'fromElement' | 'toElement'
 ) {
   const [e] = args;
   const target = e.currentTarget;
@@ -87,8 +84,8 @@ const propTypes = {
     PropTypes.number,
     PropTypes.shape({
       show: PropTypes.number,
-      hide: PropTypes.number,
-    }),
+      hide: PropTypes.number
+    })
   ]),
 
   /**
@@ -160,8 +157,8 @@ const propTypes = {
     'bottom-start',
     'left-end',
     'left',
-    'left-start',
-  ]),
+    'left-start'
+  ])
 };
 
 function OverlayTrigger({
@@ -180,10 +177,7 @@ function OverlayTrigger({
   ...props
 }: OverlayTriggerProps) {
   const triggerNodeRef = useRef(null);
-  const mergedRef = useMergedRefs<unknown>(
-    triggerNodeRef,
-    (children as any).ref,
-  );
+  const mergedRef = useMergedRefs<unknown>(triggerNodeRef, (children as any).ref);
   const timeout = useTimeout();
   const hoverStateRef = useRef<string>('');
 
@@ -192,9 +186,7 @@ function OverlayTrigger({
   const delay = normalizeDelay(propsDelay);
 
   const { onFocus, onBlur, onClick } =
-    typeof children !== 'function'
-      ? React.Children.only(children).props
-      : ({} as any);
+    typeof children !== 'function' ? React.Children.only(children).props : ({} as any);
 
   const attachRef = (r: React.Component | Element | null | undefined) => {
     mergedRef(safeFindDOMNode(r));
@@ -233,7 +225,7 @@ function OverlayTrigger({
       handleShow();
       onFocus?.(...args);
     },
-    [handleShow, onFocus],
+    [handleShow, onFocus]
   );
 
   const handleBlur = useCallback(
@@ -241,7 +233,7 @@ function OverlayTrigger({
       handleHide();
       onBlur?.(...args);
     },
-    [handleHide, onBlur],
+    [handleHide, onBlur]
   );
 
   const handleClick = useCallback(
@@ -249,26 +241,26 @@ function OverlayTrigger({
       setShow(!show);
       onClick?.(...args);
     },
-    [onClick, setShow, show],
+    [onClick, setShow, show]
   );
 
   const handleMouseOver = useCallback(
     (...args: [React.MouseEvent, ...any[]]) => {
       handleMouseOverOut(handleShow, args, 'fromElement');
     },
-    [handleShow],
+    [handleShow]
   );
 
   const handleMouseOut = useCallback(
     (...args: [React.MouseEvent, ...any[]]) => {
       handleMouseOverOut(handleHide, args, 'toElement');
     },
-    [handleHide],
+    [handleHide]
   );
 
   const triggers: string[] = trigger == null ? [] : [].concat(trigger as any);
   const triggerProps: any = {
-    ref: attachRef,
+    ref: attachRef
   };
 
   if (triggers.indexOf('click') !== -1) {
@@ -283,7 +275,7 @@ function OverlayTrigger({
   if (triggers.indexOf('hover') !== -1) {
     warning(
       triggers.length > 1,
-      '[react-bootstrap] Specifying only the `"hover"` trigger limits the visibility of the overlay to just mouse users. Consider also including the `"focus"` trigger so that touch and keyboard only users can see the overlay as well.',
+      '[react-bootstrap] Specifying only the `"hover"` trigger limits the visibility of the overlay to just mouse users. Consider also including the `"focus"` trigger so that touch and keyboard only users can see the overlay as well.'
     );
     triggerProps.onMouseOver = handleMouseOver;
     triggerProps.onMouseOut = handleMouseOut;
@@ -291,9 +283,7 @@ function OverlayTrigger({
 
   return (
     <>
-      {typeof children === 'function'
-        ? children(triggerProps)
-        : cloneElement(children, triggerProps)}
+      {typeof children === 'function' ? children(triggerProps) : cloneElement(children, triggerProps)}
       <Overlay
         {...props}
         show={show}

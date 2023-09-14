@@ -46,11 +46,11 @@ const propTypes = {
   /**
    * You can use a custom element type for this component.
    */
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const ListGroup: BsPrefixRefForwardingComponent<'div', ListGroupProps> =
-  React.forwardRef<HTMLElement, ListGroupProps>((props, ref) => {
+const ListGroup: BsPrefixRefForwardingComponent<'div', ListGroupProps> = React.forwardRef<HTMLElement, ListGroupProps>(
+  (props, ref) => {
     const {
       className,
       bsPrefix: initialBsPrefix,
@@ -61,21 +61,17 @@ const ListGroup: BsPrefixRefForwardingComponent<'div', ListGroupProps> =
       as = 'div',
       ...controlledProps
     } = useUncontrolled(props, {
-      activeKey: 'onSelect',
+      activeKey: 'onSelect'
     });
 
     const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'list-group');
 
     let horizontalVariant: string | undefined;
     if (horizontal) {
-      horizontalVariant =
-        horizontal === true ? 'horizontal' : `horizontal-${horizontal}`;
+      horizontalVariant = horizontal === true ? 'horizontal' : `horizontal-${horizontal}`;
     }
 
-    warning(
-      !(horizontal && variant === 'flush'),
-      '`variant="flush"` and `horizontal` should not be used together.',
-    );
+    warning(!(horizontal && variant === 'flush'), '`variant="flush"` and `horizontal` should not be used together.');
 
     return (
       <BaseNav
@@ -87,15 +83,16 @@ const ListGroup: BsPrefixRefForwardingComponent<'div', ListGroupProps> =
           bsPrefix,
           variant && `${bsPrefix}-${variant}`,
           horizontalVariant && `${bsPrefix}-${horizontalVariant}`,
-          numbered && `${bsPrefix}-numbered`,
+          numbered && `${bsPrefix}-numbered`
         )}
       />
     );
-  });
+  }
+);
 
 ListGroup.propTypes = propTypes;
 ListGroup.displayName = 'ListGroup';
 
 export default Object.assign(ListGroup, {
-  Item: ListGroupItem,
+  Item: ListGroupItem
 });

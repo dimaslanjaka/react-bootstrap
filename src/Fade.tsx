@@ -2,11 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useCallback } from 'react';
-import Transition, {
-  TransitionStatus,
-  ENTERED,
-  ENTERING,
-} from 'react-transition-group/Transition';
+import Transition, { TransitionStatus, ENTERED, ENTERING } from 'react-transition-group/Transition';
 import { TransitionCallbacks } from '@restart/ui/types';
 import transitionEndListener from './transitionEndListener';
 import triggerBrowserReflow from './triggerBrowserReflow';
@@ -86,12 +82,12 @@ const propTypes = {
    * Applies additional specified classes during the transition. Takes an object
    * where the keys correspond to the Transition status
    */
-  transitionClasses: PropTypes.object,
+  transitionClasses: PropTypes.object
 };
 
 const fadeStyles = {
   [ENTERING]: 'show',
-  [ENTERED]: 'show',
+  [ENTERED]: 'show'
 };
 
 const Fade = React.forwardRef<Transition<any>, FadeProps>(
@@ -102,7 +98,7 @@ const Fade = React.forwardRef<Transition<any>, FadeProps>(
       mountOnEnter: false,
       unmountOnExit: false,
       appear: false,
-      ...rest,
+      ...rest
     };
 
     const handleEnter = useCallback(
@@ -110,7 +106,7 @@ const Fade = React.forwardRef<Transition<any>, FadeProps>(
         triggerBrowserReflow(node);
         onEnter?.(node, isAppearing);
       },
-      [onEnter],
+      [onEnter]
     );
 
     return (
@@ -129,13 +125,13 @@ const Fade = React.forwardRef<Transition<any>, FadeProps>(
               className,
               children.props.className,
               fadeStyles[status],
-              transitionClasses[status],
-            ),
+              transitionClasses[status]
+            )
           })
         }
       </TransitionWrapper>
     );
-  },
+  }
 );
 
 Fade.propTypes = propTypes as any;

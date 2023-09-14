@@ -5,10 +5,7 @@ export { default as AccordionContext } from './AccordionContext';
 export { default as AccordionCollapse } from './AccordionCollapse';
 export type { AccordionCollapseProps } from './AccordionCollapse';
 
-export {
-  default as AccordionButton,
-  useAccordionButton,
-} from './AccordionButton';
+export { default as AccordionButton, useAccordionButton } from './AccordionButton';
 export type { AccordionButtonProps } from './AccordionButton';
 
 export { default as AccordionHeader } from './AccordionHeader';
@@ -321,11 +318,7 @@ export { default as ToggleButton } from './ToggleButton';
 export type { ToggleButtonProps } from './ToggleButton';
 
 export { default as ToggleButtonGroup } from './ToggleButtonGroup';
-export type {
-  ToggleButtonCheckboxProps,
-  ToggleButtonGroupProps,
-  ToggleButtonRadioProps,
-} from './ToggleButtonGroup';
+export type { ToggleButtonCheckboxProps, ToggleButtonGroupProps, ToggleButtonRadioProps } from './ToggleButtonGroup';
 
 export { default as Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';

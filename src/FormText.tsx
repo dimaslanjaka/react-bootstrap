@@ -7,9 +7,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface FormTextProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface FormTextProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {
   muted?: boolean;
 }
 
@@ -32,27 +30,17 @@ const propTypes = {
    * since it's so commonly used here.
    */
   muted: PropTypes.bool,
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const FormText: BsPrefixRefForwardingComponent<'small', FormTextProps> =
-  React.forwardRef<HTMLElement, FormTextProps>(
-    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-    (
-      { bsPrefix, className, as: Component = 'small', muted, ...props },
-      ref,
-    ) => {
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'form-text');
+const FormText: BsPrefixRefForwardingComponent<'small', FormTextProps> = React.forwardRef<HTMLElement, FormTextProps>(
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  ({ bsPrefix, className, as: Component = 'small', muted, ...props }, ref) => {
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'form-text');
 
-      return (
-        <Component
-          {...props}
-          ref={ref}
-          className={classNames(className, bsPrefix, muted && 'text-muted')}
-        />
-      );
-    },
-  );
+    return <Component {...props} ref={ref} className={classNames(className, bsPrefix, muted && 'text-muted')} />;
+  }
+);
 
 FormText.displayName = 'FormText';
 FormText.propTypes = propTypes;

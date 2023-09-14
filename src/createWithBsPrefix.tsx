@@ -13,36 +13,19 @@ interface BsPrefixOptions<As extends React.ElementType = 'div'> {
 }
 
 // TODO: emstricten & fix the typing here! `createWithBsPrefix<TElementType>...`
-export default function createWithBsPrefix<
-  As extends React.ElementType = 'div',
->(
+export default function createWithBsPrefix<As extends React.ElementType = 'div'>(
   prefix: string,
-  {
-    displayName = pascalCase(prefix),
-    Component,
-    defaultProps,
-  }: BsPrefixOptions<As> = {},
+  { displayName = pascalCase(prefix), Component, defaultProps }: BsPrefixOptions<As> = {}
 ): BsPrefixRefForwardingComponent<As> {
-  const BsComponent = React.forwardRef(
-    (
-      { className, bsPrefix, as: Tag = Component || 'div', ...props }: any,
-      ref,
-    ) => {
-      const componentProps = {
-        ...defaultProps,
-        ...props,
-      };
+  const BsComponent = React.forwardRef(({ className, bsPrefix, as: Tag = Component || 'div', ...props }: any, ref) => {
+    const componentProps = {
+      ...defaultProps,
+      ...props
+    };
 
-      const resolvedPrefix = useBootstrapPrefix(bsPrefix, prefix);
-      return (
-        <Tag
-          ref={ref}
-          className={classNames(className, resolvedPrefix)}
-          {...componentProps}
-        />
-      );
-    },
-  );
+    const resolvedPrefix = useBootstrapPrefix(bsPrefix, prefix);
+    return <Tag ref={ref} className={classNames(className, resolvedPrefix)} {...componentProps} />;
+  });
 
   BsComponent.displayName = displayName;
   return BsComponent as any;

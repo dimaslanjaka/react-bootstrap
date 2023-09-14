@@ -9,10 +9,7 @@ import ButtonGroup, { ButtonGroupProps } from './ButtonGroup';
 import ToggleButton from './ToggleButton';
 import { BsPrefixRefForwardingComponent } from './helpers';
 
-type BaseToggleButtonProps = Omit<
-  ButtonGroupProps,
-  'toggle' | 'defaultValue' | 'onChange'
->;
+type BaseToggleButtonProps = Omit<ButtonGroupProps, 'toggle' | 'defaultValue' | 'onChange'>;
 
 export interface ToggleButtonRadioProps<T> extends BaseToggleButtonProps {
   type?: 'radio';
@@ -30,9 +27,7 @@ export interface ToggleButtonCheckboxProps<T> extends BaseToggleButtonProps {
   onChange?: (value: T[]) => void;
 }
 
-export type ToggleButtonGroupProps<T> =
-  | ToggleButtonRadioProps<T>
-  | ToggleButtonCheckboxProps<T>;
+export type ToggleButtonGroupProps<T> = ToggleButtonRadioProps<T> | ToggleButtonCheckboxProps<T>;
 
 const propTypes = {
   /**
@@ -72,13 +67,13 @@ const propTypes = {
   size: PropTypes.string,
 
   /** Make the set of Buttons appear vertically stacked. */
-  vertical: PropTypes.bool,
+  vertical: PropTypes.bool
 };
 
-const ToggleButtonGroup: BsPrefixRefForwardingComponent<
-  'a',
+const ToggleButtonGroup: BsPrefixRefForwardingComponent<'a', ToggleButtonGroupProps<any>> = React.forwardRef<
+  HTMLElement,
   ToggleButtonGroupProps<any>
-> = React.forwardRef<HTMLElement, ToggleButtonGroupProps<any>>((props, ref) => {
+>((props, ref) => {
   const {
     children,
     type = 'radio',
@@ -88,7 +83,7 @@ const ToggleButtonGroup: BsPrefixRefForwardingComponent<
     vertical = false,
     ...controlledProps
   } = useUncontrolled(props, {
-    value: 'onChange',
+    value: 'onChange'
   });
 
   const getValues: () => any[] = () => (value == null ? [] : [].concat(value));
@@ -108,7 +103,7 @@ const ToggleButtonGroup: BsPrefixRefForwardingComponent<
     if (isActive) {
       onChange(
         values.filter((n) => n !== inputVal),
-        event,
+        event
       );
     } else {
       onChange([...values, inputVal], event);
@@ -117,8 +112,7 @@ const ToggleButtonGroup: BsPrefixRefForwardingComponent<
 
   invariant(
     type !== 'radio' || !!name,
-    'A `name` is required to group the toggle buttons when the `type` ' +
-      'is set to "radio"',
+    'A `name` is required to group the toggle buttons when the `type` ' + 'is set to "radio"'
   );
 
   return (
@@ -132,7 +126,7 @@ const ToggleButtonGroup: BsPrefixRefForwardingComponent<
           type,
           name: (child as any).name || name,
           checked: values.indexOf(childVal) !== -1,
-          onChange: chainFunction(childOnChange, handler),
+          onChange: chainFunction(childOnChange, handler)
         });
       })}
     </ButtonGroup>
@@ -142,5 +136,5 @@ const ToggleButtonGroup: BsPrefixRefForwardingComponent<
 ToggleButtonGroup.propTypes = propTypes;
 
 export default Object.assign(ToggleButtonGroup, {
-  Button: ToggleButton,
+  Button: ToggleButton
 });

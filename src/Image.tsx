@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixOnlyProps } from './helpers';
 
-export interface ImageProps
-  extends BsPrefixOnlyProps,
-    React.ImgHTMLAttributes<HTMLImageElement> {
+export interface ImageProps extends BsPrefixOnlyProps, React.ImgHTMLAttributes<HTMLImageElement> {
   fluid?: boolean;
   rounded?: boolean;
   roundedCircle?: boolean;
@@ -37,21 +35,13 @@ export const propTypes = {
   /**
    * Sets image shape as thumbnail.
    */
-  thumbnail: PropTypes.bool,
+  thumbnail: PropTypes.bool
 };
 
 const Image = React.forwardRef<HTMLImageElement, ImageProps>(
   (
-    {
-      bsPrefix,
-      className,
-      fluid = false,
-      rounded = false,
-      roundedCircle = false,
-      thumbnail = false,
-      ...props
-    },
-    ref,
+    { bsPrefix, className, fluid = false, rounded = false, roundedCircle = false, thumbnail = false, ...props },
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'img');
     return (
@@ -63,11 +53,11 @@ const Image = React.forwardRef<HTMLImageElement, ImageProps>(
           fluid && `${bsPrefix}-fluid`,
           rounded && `rounded`,
           roundedCircle && `rounded-circle`,
-          thumbnail && `${bsPrefix}-thumbnail`,
+          thumbnail && `${bsPrefix}-thumbnail`
         )}
       />
     );
-  },
+  }
 );
 
 Image.displayName = 'Image';

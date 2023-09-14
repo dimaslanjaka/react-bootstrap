@@ -5,9 +5,7 @@ import Anchor from '@restart/ui/Anchor';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-export interface BreadcrumbItemProps
-  extends BsPrefixProps,
-    Omit<React.HTMLAttributes<HTMLElement>, 'title'> {
+export interface BreadcrumbItemProps extends BsPrefixProps, Omit<React.HTMLAttributes<HTMLElement>, 'title'> {
   active?: boolean;
   href?: string;
   linkAs?: React.ElementType;
@@ -47,13 +45,13 @@ const propTypes = {
    */
   linkProps: PropTypes.object,
 
-  as: PropTypes.elementType,
+  as: PropTypes.elementType
 };
 
-const BreadcrumbItem: BsPrefixRefForwardingComponent<
-  'li',
+const BreadcrumbItem: BsPrefixRefForwardingComponent<'li', BreadcrumbItemProps> = React.forwardRef<
+  HTMLElement,
   BreadcrumbItemProps
-> = React.forwardRef<HTMLElement, BreadcrumbItemProps>(
+>(
   (
     {
       bsPrefix,
@@ -69,7 +67,7 @@ const BreadcrumbItem: BsPrefixRefForwardingComponent<
       target,
       ...props
     },
-    ref,
+    ref
   ) => {
     const prefix = useBootstrapPrefix(bsPrefix, 'breadcrumb-item');
 
@@ -83,18 +81,13 @@ const BreadcrumbItem: BsPrefixRefForwardingComponent<
         {active ? (
           children
         ) : (
-          <LinkComponent
-            {...linkProps}
-            href={href}
-            title={title}
-            target={target}
-          >
+          <LinkComponent {...linkProps} href={href} title={title} target={target}>
             {children}
           </LinkComponent>
         )}
       </Component>
     );
-  },
+  }
 );
 
 BreadcrumbItem.displayName = 'BreadcrumbItem';

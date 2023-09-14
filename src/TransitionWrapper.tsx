@@ -1,40 +1,18 @@
 import React, { useCallback, useRef } from 'react';
-import Transition, {
-  TransitionProps,
-  TransitionStatus,
-} from 'react-transition-group/Transition';
+import Transition, { TransitionProps, TransitionStatus } from 'react-transition-group/Transition';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import safeFindDOMNode from './safeFindDOMNode';
 
 export type TransitionWrapperProps = TransitionProps & {
   childRef?: React.Ref<unknown>;
-  children:
-    | React.ReactElement
-    | ((
-        status: TransitionStatus,
-        props: Record<string, unknown>,
-      ) => React.ReactNode);
+  children: React.ReactElement | ((status: TransitionStatus, props: Record<string, unknown>) => React.ReactNode);
 };
 
 // Normalizes Transition callbacks when nodeRef is used.
-const TransitionWrapper = React.forwardRef<
-  Transition<any>,
-  TransitionWrapperProps
->(
+const TransitionWrapper = React.forwardRef<Transition<any>, TransitionWrapperProps>(
   (
-    {
-      onEnter,
-      onEntering,
-      onEntered,
-      onExit,
-      onExiting,
-      onExited,
-      addEndListener,
-      children,
-      childRef,
-      ...props
-    },
-    ref,
+    { onEnter, onEntering, onEntered, onExit, onExiting, onExited, addEndListener, children, childRef, ...props },
+    ref
   ) => {
     const nodeRef = useRef<HTMLElement>(null);
     const mergedRef = useMergedRefs(nodeRef, childRef);
@@ -43,12 +21,11 @@ const TransitionWrapper = React.forwardRef<
       mergedRef(safeFindDOMNode(r));
     };
 
-    const normalize =
-      (callback?: (node: HTMLElement, param: any) => void) => (param: any) => {
-        if (callback && nodeRef.current) {
-          callback(nodeRef.current, param);
-        }
-      };
+    const normalize = (callback?: (node: HTMLElement, param: any) => void) => (param: any) => {
+      if (callback && nodeRef.current) {
+        callback(nodeRef.current, param);
+      }
+    };
 
     /* eslint-disable react-hooks/exhaustive-deps */
     const handleEnter = useCallback(normalize(onEnter), [onEnter]);
@@ -57,9 +34,7 @@ const TransitionWrapper = React.forwardRef<
     const handleExit = useCallback(normalize(onExit), [onExit]);
     const handleExiting = useCallback(normalize(onExiting), [onExiting]);
     const handleExited = useCallback(normalize(onExited), [onExited]);
-    const handleAddEndListener = useCallback(normalize(addEndListener), [
-      addEndListener,
-    ]);
+    const handleAddEndListener = useCallback(normalize(addEndListener), [addEndListener]);
     /* eslint-enable react-hooks/exhaustive-deps */
 
     return (
@@ -80,14 +55,14 @@ const TransitionWrapper = React.forwardRef<
               // TODO: Types for RTG missing innerProps, so need to cast.
               children(status, {
                 ...innerProps,
-                ref: attachRef,
+                ref: attachRef
               })) as any)
           : React.cloneElement(children as React.ReactElement, {
-              ref: attachRef,
+              ref: attachRef
             })}
       </Transition>
     );
-  },
+  }
 );
 
 export default TransitionWrapper;

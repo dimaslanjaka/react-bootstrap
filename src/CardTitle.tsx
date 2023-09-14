@@ -6,23 +6,14 @@ import divWithClassName from './divWithClassName';
 
 const DivStyledAsH5 = divWithClassName('h5');
 
-export interface CardTitleProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {}
+export interface CardTitleProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {}
 
-const CardTitle: BsPrefixRefForwardingComponent<'div', CardTitleProps> =
-  React.forwardRef<HTMLElement, CardTitleProps>(
-    ({ className, bsPrefix, as: Component = DivStyledAsH5, ...props }, ref) => {
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'card-title');
-      return (
-        <Component
-          ref={ref}
-          className={classNames(className, bsPrefix)}
-          {...props}
-        />
-      );
-    },
-  );
+const CardTitle: BsPrefixRefForwardingComponent<'div', CardTitleProps> = React.forwardRef<HTMLElement, CardTitleProps>(
+  ({ className, bsPrefix, as: Component = DivStyledAsH5, ...props }, ref) => {
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'card-title');
+    return <Component ref={ref} className={classNames(className, bsPrefix)} {...props} />;
+  }
+);
 
 CardTitle.displayName = 'CardTitle';
 

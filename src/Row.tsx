@@ -3,33 +3,13 @@ import PropTypes from 'prop-types';
 
 import * as React from 'react';
 
-import {
-  useBootstrapPrefix,
-  useBootstrapBreakpoints,
-  useBootstrapMinBreakpoint,
-} from './ThemeProvider';
+import { useBootstrapPrefix, useBootstrapBreakpoints, useBootstrapMinBreakpoint } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
-type RowColWidth =
-  | number
-  | '1'
-  | '2'
-  | '3'
-  | '4'
-  | '5'
-  | '6'
-  | '7'
-  | '8'
-  | '9'
-  | '10'
-  | '11'
-  | '12'
-  | 'auto';
+type RowColWidth = number | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12' | 'auto';
 type RowColumns = RowColWidth | { cols?: RowColWidth };
 
-export interface RowProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface RowProps extends BsPrefixProps, React.HTMLAttributes<HTMLElement> {
   xs?: RowColumns;
   sm?: RowColumns;
   md?: RowColumns;
@@ -44,8 +24,8 @@ const rowColWidth = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
 const rowColumns = PropTypes.oneOfType([
   rowColWidth,
   PropTypes.shape({
-    cols: rowColWidth,
-  }),
+    cols: rowColWidth
+  })
 ]);
 
 const propTypes = {
@@ -102,13 +82,10 @@ const propTypes = {
    *
    * @type {(number|'auto'|{ cols: number|'auto' })}
    */
-  xxl: rowColumns,
+  xxl: rowColumns
 };
 
-const Row: BsPrefixRefForwardingComponent<'div', RowProps> = React.forwardRef<
-  HTMLDivElement,
-  RowProps
->(
+const Row: BsPrefixRefForwardingComponent<'div', RowProps> = React.forwardRef<HTMLDivElement, RowProps>(
   (
     {
       bsPrefix,
@@ -117,7 +94,7 @@ const Row: BsPrefixRefForwardingComponent<'div', RowProps> = React.forwardRef<
       as: Component = 'div',
       ...props
     }: RowProps,
-    ref,
+    ref
   ) => {
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'row');
     const breakpoints = useBootstrapBreakpoints();
@@ -142,14 +119,8 @@ const Row: BsPrefixRefForwardingComponent<'div', RowProps> = React.forwardRef<
       if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
     });
 
-    return (
-      <Component
-        ref={ref}
-        {...props}
-        className={classNames(className, decoratedBsPrefix, ...classes)}
-      />
-    );
-  },
+    return <Component ref={ref} {...props} className={classNames(className, decoratedBsPrefix, ...classes)} />;
+  }
 );
 
 Row.displayName = 'Row';

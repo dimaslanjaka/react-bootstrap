@@ -10,9 +10,7 @@ import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
 type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
 
-export interface FormControlProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<FormControlElement> {
+export interface FormControlProps extends BsPrefixProps, React.HTMLAttributes<FormControlElement> {
   htmlSize?: number;
   size?: 'sm' | 'lg';
   plaintext?: boolean;
@@ -76,11 +74,7 @@ const propTypes = {
    *
    * @controllable onChange
    * */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.number,
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string), PropTypes.number]),
 
   /** A callback fired when the `value` prop changes */
   onChange: PropTypes.func,
@@ -99,58 +93,57 @@ const propTypes = {
   isValid: PropTypes.bool,
 
   /** Add "invalid" validation styles to the control and accompanying label */
-  isInvalid: PropTypes.bool,
+  isInvalid: PropTypes.bool
 };
 
-const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
-  React.forwardRef<FormControlElement, FormControlProps>(
-    (
-      {
-        bsPrefix,
-        type,
-        size,
-        htmlSize,
-        id,
-        className,
-        isValid = false,
-        isInvalid = false,
-        plaintext,
-        readOnly,
-        // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as: Component = 'input',
-        ...props
-      },
-      ref,
-    ) => {
-      const { controlId } = useContext(FormContext);
-
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'form-control');
-
-      warning(
-        controlId == null || !id,
-        '`controlId` is ignored on `<FormControl>` when `id` is specified.',
-      );
-
-      return (
-        <Component
-          {...props}
-          type={type}
-          size={htmlSize}
-          ref={ref}
-          readOnly={readOnly}
-          id={id || controlId}
-          className={classNames(
-            className,
-            plaintext ? `${bsPrefix}-plaintext` : bsPrefix,
-            size && `${bsPrefix}-${size}`,
-            type === 'color' && `${bsPrefix}-color`,
-            isValid && 'is-valid',
-            isInvalid && 'is-invalid',
-          )}
-        />
-      );
+const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> = React.forwardRef<
+  FormControlElement,
+  FormControlProps
+>(
+  (
+    {
+      bsPrefix,
+      type,
+      size,
+      htmlSize,
+      id,
+      className,
+      isValid = false,
+      isInvalid = false,
+      plaintext,
+      readOnly,
+      // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+      as: Component = 'input',
+      ...props
     },
-  );
+    ref
+  ) => {
+    const { controlId } = useContext(FormContext);
+
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'form-control');
+
+    warning(controlId == null || !id, '`controlId` is ignored on `<FormControl>` when `id` is specified.');
+
+    return (
+      <Component
+        {...props}
+        type={type}
+        size={htmlSize}
+        ref={ref}
+        readOnly={readOnly}
+        id={id || controlId}
+        className={classNames(
+          className,
+          plaintext ? `${bsPrefix}-plaintext` : bsPrefix,
+          size && `${bsPrefix}-${size}`,
+          type === 'color' && `${bsPrefix}-color`,
+          isValid && 'is-valid',
+          isInvalid && 'is-invalid'
+        )}
+      />
+    );
+  }
+);
 
 FormControl.displayName = 'FormControl';
 FormControl.propTypes = propTypes;

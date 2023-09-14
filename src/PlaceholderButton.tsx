@@ -25,19 +25,17 @@ const propTypes = {
   /**
    * Button variant.
    */
-  variant: PropTypes.string,
+  variant: PropTypes.string
 };
 
-const PlaceholderButton: BsPrefixRefForwardingComponent<
-  'button',
+const PlaceholderButton: BsPrefixRefForwardingComponent<'button', PlaceholderButtonProps> = React.forwardRef<
+  HTMLButtonElement,
   PlaceholderButtonProps
-> = React.forwardRef<HTMLButtonElement, PlaceholderButtonProps>(
-  (props, ref) => {
-    const placeholderProps = usePlaceholder(props);
+>((props, ref) => {
+  const placeholderProps = usePlaceholder(props);
 
-    return <Button {...placeholderProps} ref={ref} disabled tabIndex={-1} />;
-  },
-);
+  return <Button {...placeholderProps} ref={ref} disabled tabIndex={-1} />;
+});
 
 PlaceholderButton.displayName = 'PlaceholderButton';
 PlaceholderButton.propTypes = propTypes;

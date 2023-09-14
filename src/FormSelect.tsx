@@ -42,11 +42,7 @@ const propTypes = {
    *
    * @controllable onChange
    * */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.number,
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string), PropTypes.number]),
 
   /** A callback fired when the `value` prop changes */
   onChange: PropTypes.func,
@@ -55,44 +51,32 @@ const propTypes = {
   isValid: PropTypes.bool,
 
   /** Add "invalid" validation styles to the control and accompanying label */
-  isInvalid: PropTypes.bool,
+  isInvalid: PropTypes.bool
 };
 
-const FormSelect: BsPrefixRefForwardingComponent<'select', FormSelectProps> =
-  React.forwardRef<HTMLSelectElement, FormSelectProps>(
-    (
-      {
-        bsPrefix,
-        size,
-        htmlSize,
-        className,
-        isValid = false,
-        isInvalid = false,
-        id,
-        ...props
-      },
-      ref,
-    ) => {
-      const { controlId } = useContext(FormContext);
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'form-select');
+const FormSelect: BsPrefixRefForwardingComponent<'select', FormSelectProps> = React.forwardRef<
+  HTMLSelectElement,
+  FormSelectProps
+>(({ bsPrefix, size, htmlSize, className, isValid = false, isInvalid = false, id, ...props }, ref) => {
+  const { controlId } = useContext(FormContext);
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'form-select');
 
-      return (
-        <select
-          {...props}
-          size={htmlSize}
-          ref={ref}
-          className={classNames(
-            className,
-            bsPrefix,
-            size && `${bsPrefix}-${size}`,
-            isValid && `is-valid`,
-            isInvalid && `is-invalid`,
-          )}
-          id={id || controlId}
-        />
-      );
-    },
+  return (
+    <select
+      {...props}
+      size={htmlSize}
+      ref={ref}
+      className={classNames(
+        className,
+        bsPrefix,
+        size && `${bsPrefix}-${size}`,
+        isValid && `is-valid`,
+        isInvalid && `is-invalid`
+      )}
+      id={id || controlId}
+    />
   );
+});
 
 FormSelect.displayName = 'FormSelect';
 FormSelect.propTypes = propTypes;

@@ -9,7 +9,7 @@ module.exports = (config) => {
     files: ['test/index.js'],
 
     preprocessors: {
-      'test/index.js': ['webpack', 'sourcemap'],
+      'test/index.js': ['webpack', 'sourcemap']
     },
 
     webpack: {
@@ -23,11 +23,11 @@ module.exports = (config) => {
               loader: 'babel-loader',
               options: {
                 cacheDirectory: true,
-                envName: 'test',
-              },
-            },
-          },
-        ],
+                envName: 'test'
+              }
+            }
+          }
+        ]
       },
       resolve: {
         symlinks: false,
@@ -36,35 +36,35 @@ module.exports = (config) => {
           util: require.resolve('util/'),
           // for Enzyme/Cheerio
           stream: require.resolve('stream-browserify'),
-          'process/browser': require.resolve('process/browser'),
-        },
+          'process/browser': require.resolve('process/browser')
+        }
       },
       plugins: [
         new DefinePlugin({
           __DEV__: true,
-          'process.env.NODE_ENV': JSON.stringify('test'),
+          'process.env.NODE_ENV': JSON.stringify('test')
         }),
         new ProvidePlugin({
-          process: 'process/browser',
-        }),
+          process: 'process/browser'
+        })
       ],
       devtool: 'inline-cheap-module-source-map',
-      stats: 'minimal',
+      stats: 'minimal'
     },
 
     reporters: ['mocha', 'coverage'],
 
     mochaReporter: {
-      output: 'autowatch',
+      output: 'autowatch'
     },
 
     coverageReporter: {
       type: 'lcov',
-      dir: 'coverage',
+      dir: 'coverage'
     },
 
-    browsers: env.BROWSER ? env.BROWSER.split(',') : ['Chrome'],
+    browsers: env.BROWSER ? env.BROWSER.split(',') : ['Chrome', 'Firefox'],
 
-    singleRun: env.CONTINUOUS_INTEGRATION === 'true',
+    singleRun: env.CONTINUOUS_INTEGRATION === 'true'
   });
 };
